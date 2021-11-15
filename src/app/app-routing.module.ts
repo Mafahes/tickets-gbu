@@ -7,6 +7,7 @@ import {SafetyBordComponent} from "./pages/safety-bord/safety-bord.component";
 import {TerminalCatListComponent} from './pages/terminal/terminal-cat-list/terminal-cat-list.component';
 import {RoomSubdivisionsComponent} from "./pages/room/room-subdivisions/room-subdivisions.component";
 import {RoomCatsComponent} from "./pages/room/room-cats/room-cats.component";
+import {SessionPageComponent} from "./pages/room/session-page/session-page.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'terminal/cats', component: TerminalCatListComponent },
   { path: 'room/list', component: RoomSubdivisionsComponent },
   { path: 'room/list/:id/cats', component: RoomCatsComponent },
+  { path: 'room/session/:id', component: SessionPageComponent },
 ];
 
 @NgModule({

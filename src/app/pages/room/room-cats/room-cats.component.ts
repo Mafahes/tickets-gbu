@@ -24,7 +24,6 @@ export class RoomCatsComponent implements OnInit {
     this.arouter.paramMap.subscribe(async (e) => {
       this.roomId = e.get('id');
       this.cats = await this.api.getCatByRoom(this.roomId).toPromise();
-      this.cats = [...this.cats, ...this.cats, ...this.cats, ...this.cats, ...this.cats, ...this.cats, ...this.cats, ...this.cats, ...this.cats, ...this.cats, ...this.cats, ...this.cats,...this.cats,...this.cats, ...this.cats,...this.cats,]
     });
   }
   switchCat(id, type): void {

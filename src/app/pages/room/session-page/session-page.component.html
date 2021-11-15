@@ -1,0 +1,58 @@
+<div class="container-fluid d-flex flex-column py-3" style="height: 100vh">
+  <div class="row">
+    <div class="col-3 d-flex justify-content-start align-items-center">
+      <p class="label">Пульт оператора</p>
+    </div>
+    <div class="col-3 d-flex justify-content-start align-items-center">
+      <p class="label">Время сессии: 10:00:00</p>
+    </div>
+    <div class="col-6 d-flex flex-row justify-content-between">
+      <button mat-raised-button>Пауза</button>
+      <button mat-raised-button>Завершить сессию</button>
+      <button mat-raised-button>Статистика</button>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col-12">
+      <mat-divider></mat-divider>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 d-flex flex-column justify-content-start align-items-center ticket-card">
+      <p class="label">клиент</p>
+      <p class="label">У12</p>
+      <p class="label">Услуга 1</p>
+    </div>
+    <div class="col-3 d-flex justify-content-center flex-column align-items-start" style="gap: 15px">
+      <p class="label">Очередь: 4</p>
+      <p class="label">Следующий: У13</p>
+    </div>
+    <div class="col-6 d-flex flex-row justify-content-between align-items-center">
+      <button mat-raised-button>Начать<br/>обслуживание</button>
+      <button mat-raised-button>Отложить</button>
+      <button mat-raised-button>Перенаправить</button>
+    </div>
+  </div>
+  <div class="row mt-4 mb-2">
+    <div class="col-12">
+      <mat-divider></mat-divider>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 d-flex flex-row justify-content-center align-items-center">
+      <span class="label">Вызов посетителей</span>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-3">
+      <button class="w-100" mat-raised-button>Вызов<br/>по номеру</button>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-3">
+      <button class="w-100" mat-raised-button>Вызов из списка<br/>отложенных</button>
+    </div>
+  </div>
+</div>

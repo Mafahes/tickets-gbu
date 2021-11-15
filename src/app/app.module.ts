@@ -80,6 +80,7 @@ import { TicketListComponent } from './pages/ticket-list/ticket-list.component';
 import { TerminalCatListComponent } from './pages/terminal/terminal-cat-list/terminal-cat-list.component';
 import { RoomCatsComponent } from './pages/room/room-cats/room-cats.component';
 import { RoomSubdivisionsComponent } from './pages/room/room-subdivisions/room-subdivisions.component';
+import { SessionPageComponent } from './pages/room/session-page/session-page.component';
 
 registerLocaleData(localeRu, 'ru');
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -117,6 +118,7 @@ export const MY_FORMATS = {
     TerminalCatListComponent,
     RoomCatsComponent,
     RoomSubdivisionsComponent,
+    SessionPageComponent,
   ],
     imports: [
       NgxOneSignalModule.forRoot({
