@@ -1,0 +1,38 @@
+<app-header></app-header>
+<div class="container-fluid view">
+  <div class="row d-flex flex-row">
+    <div class="half">
+      <div class="d-flex flex-row mt-4">
+        <span class="th half-40">
+            ТАЛОН
+          </span>
+        <div class="half-20"></div>
+        <span class="th half-40">
+            ОКНО
+          </span>
+      </div>
+    </div>
+    <div class="half">
+    </div>
+  </div>
+  <div class="d-flex flex-row">
+    <div class="half">
+      <div *ngFor="let item of arr; let i = index" (click)="select(i)" [class.active]="selectedItem === i" class="d-flex py-4 window-list justify-content-between flex-row">
+        <p class="title half-40">{{item.name}}</p>
+        <span class="arrow half-20" *ngIf="!!item.window">></span>
+        <p class="window half-40" *ngIf="!!item.window">{{item.window}}</p>
+      </div>
+    </div>
+    <div class="half" *ngIf="selectedItem === 0 ? true : !!selectedItem">
+      <div
+        [class.r-bt-right]="true"
+        [class.r-top-right]="true"
+        [class.r-bt-left]="!(selectedItem + 1 === arr.length)"
+        [class.r-top-left]="!(selectedItem === 0)"
+        class="w-100 h-100 white-block d-flex flex-column justify-content-center align-items-center">
+        <span>{{arr[selectedItem].name}}</span>
+        <span>ОКНО {{arr[selectedItem].window}}</span>
+      </div>
+    </div>
+  </div>
+</div>

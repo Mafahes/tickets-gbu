@@ -1,0 +1,50 @@
+.sidenav-container {
+  height: 93%;
+}
+
+.sidenav {
+  width: 230px;
+}
+::ng-deep {
+  .mat-badge-content {
+    font-weight: 100;
+    font-size: 9px;
+  }
+}
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+.active-menu-link {
+  background-color: #eaeaea !important;
+}
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+mat-toolbar {
+  box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+}
+.appbar {
+  z-index: 999 !important;
+  background-color: white !important;
+  span {
+    color: #222b45ba;
+    font-family: "Inter", sans-serif;
+  }
+}
+mat-icon {
+  color: #222b45;
+}
+.item-list__text {
+  color: #222b45ba;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+::ng-deep .mat-list-item-content {
+  //justify-content: space-around !important;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}

@@ -1,0 +1,9 @@
+<ngx-spinner></ngx-spinner>
+<div class="w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!initialized">
+  <mat-spinner></mat-spinner>
+</div>
+<app-sidenav *ngIf="route !== '/login' && route !== '/list' && initialized"></app-sidenav>
+<app-login *ngIf="route === '/login' && initialized"></app-login>
+<div *ngIf="route === '/list' && initialized" class="root-class px-5">
+  <router-outlet></router-outlet>
+</div>
