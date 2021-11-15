@@ -14,7 +14,7 @@ import {AppComponent} from "../../app.component";
 export class LoginComponent implements OnInit {
   form = this.fb.group({
     email: [null, Validators.compose([Validators.required, Validators.email])],
-    password: [null, Validators.required]
+    code: [null, Validators.required]
   });
   loading = false;
   constructor(private fb: FormBuilder, private app: AppComponent, private router: Router, private api: ApiService, private snackBar: MatSnackBar) { }
@@ -25,16 +25,12 @@ export class LoginComponent implements OnInit {
     this.api.logIn(this.form.value).subscribe(async (e) => {
       this.loading = false;
       localStorage.setItem('api_token', e.text);
-      await this.app.parseUser();
-      // if (this.app.user.role.name !== 'provider' && this.app.user.role.name !== 'admin' && this.app.user.role.name !== 'dispatcher') {
-      //   this.snackBar.open('Доступ запрещен', null, {duration: 1000});
-      //   this.form.reset();
-      //   return;
-      // }
-      if (this.app.user.role.name === 'dispatcher') {
-        this.router.navigate(['/orders']);
+      // await this.app.parseUser();
+      let a = await this.api.getSession().toPromise();
+      if (a.length > 0) {
+        this.router.navigate(['session/' + a[0].roomId]);
       } else {
-        this.router.navigate(['/']);
+        this.router.navigate(['/room/list']);
       }
     }, (e) => {
       this.loading = false;

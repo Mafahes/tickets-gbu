@@ -1,0 +1,36 @@
+<div class="container-fluid appbar">
+  <div class="row header pt-4">
+    <div class="col-2 d-flex flex-column time-labels">
+      <p>11:04</p>
+      <p>20 октября</p>
+    </div>
+    <div class="col-5 d-flex flex-column pleasure-text">
+      <p>Пожалуйста, выберите<br>категорию услуги</p>
+    </div>
+    <div class="col-2 justify-content-center align-items-center d-flex flex-column">
+      <input class="search-panel w-100" placeholder="Поиск..."/>
+    </div>
+    <div class="col-1 help-icon justify-content-center align-items-center d-flex flex-column">
+      <img src="assets/images/info_icon.png"/>
+      <p>помощь<br>специалиста</p>
+    </div>
+    <div class="col-2 d-flex flex-row justify-content-end">
+      <img src="assets/images/logo.png" width="100"/>
+    </div>
+  </div>
+  <div class="row d-flex">
+    <div class="line">
+    </div>
+  </div>
+</div>
+<div class="container cats-container">
+  <div class="row">
+    <div *ngFor="let item of arr" class="col-4 mb-3">
+      <div class="cat-item d-flex flex-column align-items-center">
+        <img src="assets/images/cat_item.png"/>
+        <p>Категория 1</p>
+        <p>Краткое описание</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,12 +4,18 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {LoginComponent} from './pages/login/login.component';
 import {TicketListComponent} from "./pages/ticket-list/ticket-list.component";
 import {SafetyBordComponent} from "./pages/safety-bord/safety-bord.component";
+import {TerminalCatListComponent} from './pages/terminal/terminal-cat-list/terminal-cat-list.component';
+import {RoomSubdivisionsComponent} from "./pages/room/room-subdivisions/room-subdivisions.component";
+import {RoomCatsComponent} from "./pages/room/room-cats/room-cats.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'list', component: TicketListComponent },
-  { path: 'safety', component: SafetyBordComponent },
+  { path: 'monitor/list', component: TicketListComponent },
+  { path: 'monitor/safety', component: SafetyBordComponent },
+  { path: 'terminal/cats', component: TerminalCatListComponent },
+  { path: 'room/list', component: RoomSubdivisionsComponent },
+  { path: 'room/list/:id/cats', component: RoomCatsComponent },
 ];
 
 @NgModule({

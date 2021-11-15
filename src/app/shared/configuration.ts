@@ -1,9 +1,17 @@
 export enum ApiTypes {
-  TEST = 'https://nomenclature.3dcafe.ru/',
-  PROD = 'https://nomenclature.3dcafe.ru/'
+  TEST = 'https://electronicqueue.3dcafe.ru/',
+  PROD = 'https://electronicqueue.3dcafe.ru/'
 }
 export class Api {
   public static API_LINK = ApiTypes.TEST;
+}
+export class MainRoutes {
+  public static routes = [
+    { label: '', path: 'list', adminPage: false },
+    { label: '', path: 'login', adminPage: true },
+    { label: '', path: 'list', adminPage: false },
+    { label: '', path: 'list', adminPage: false }
+  ];
 }
 export class Status {
   public static statuses = [

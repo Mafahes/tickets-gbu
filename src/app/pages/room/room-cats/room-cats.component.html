@@ -1,0 +1,42 @@
+<div class="container-fluid d-flex flex-column py-3" style="height: 100vh" *ngIf="!!cats">
+  <div class="row">
+    <div class="col-12">
+      <p class="label">Пульт оператора</p>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <p class="label center">Выбор категорий услуг</p>
+    </div>
+  </div>
+  <div class="row mx-3">
+    <div class="col-6 d-flex justify-content-center align-items-center">
+      <div class="w-75 cat-name__box d-flex p-3 flex-column justify-content-center align-items-center">
+        <span class="cat-name">Основные категории</span>
+      </div>
+    </div>
+    <div class="col-6 d-flex justify-content-center align-items-center">
+      <div class="w-75 cat-name__box d-flex p-3 flex-column justify-content-center align-items-center">
+        <span class="cat-name">Второстепенные категории</span>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-3 mt-2">
+    <div class="col-6 d-flex justify-content-center align-items-center flex-column scrolled">
+      <div class="w-75 my-2 d-flex flex-row justify-content-between" *ngFor="let item of cats">
+        <span class="cat-checkbox__label">{{item.name}}</span>
+        <mat-checkbox (change)="switchCat(item.id, 1)" color="primary"></mat-checkbox>
+      </div>
+    </div>
+    <div class="col-6 d-flex justify-content-center align-items-center flex-column scrolled">
+      <div class="w-75 my-2 d-flex flex-row justify-content-between" *ngFor="let item of cats">
+        <span class="cat-checkbox__label">{{item.name}}</span>
+        <mat-checkbox (change)="switchCat(item.id, 2)" color="primary"></mat-checkbox>
+      </div>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-end align-items-end flex-column mx-3 h-100">
+    <button [disabled]="mainCat.length === 0" mat-raised-button (click)="startSession()">Начать сессию</button>
+  </div>
+</div>

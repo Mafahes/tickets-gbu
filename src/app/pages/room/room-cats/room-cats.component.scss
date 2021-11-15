@@ -1,0 +1,44 @@
+.label {
+  font-size: 24px;
+  font-family: HumanistRegular, sans-serif;
+}
+.center {
+  text-align: center;
+}
+.radio-label {
+  @extend .label;
+}
+p, span {
+  font-family: HumanistRegular, sans-serif;
+  line-height: 1em !important;
+}
+button {
+  ::ng-deep.mat-button-wrapper {
+    font-family: HumanistRegular, sans-serif !important;
+    font-size: 24px !important;
+  }
+  padding: 20px 110px;
+  border-radius: 0 !important;
+  color: white;
+  background-color: black;
+}
+.cat-name {
+  color: black;
+  text-align: center;
+  font-size: 36px;
+}
+.cat-name__box {
+  background-color: #C4C4C4;
+}
+.cat-checkbox__label {
+  font-size: 24px;
+}
+.scrolled {
+  max-height: 500px;
+  overflow: auto;
+}
+::ng-deep {
+  .mat-checkbox-checked .mat-checkbox-background {
+    background-color: black !important;
+  }
+}

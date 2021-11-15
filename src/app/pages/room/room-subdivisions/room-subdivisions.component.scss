@@ -1,0 +1,24 @@
+.label {
+  font-size: 24px;
+  font-family: HumanistRegular, sans-serif;
+}
+.center {
+  text-align: center;
+}
+.radio-label {
+  @extend .label;
+}
+p, span {
+  font-family: HumanistRegular, sans-serif;
+  line-height: 1em !important;
+}
+button {
+  ::ng-deep.mat-button-wrapper {
+    font-family: HumanistRegular, sans-serif !important;
+    font-size: 24px !important;
+  }
+  padding: 20px 110px;
+  border-radius: 0 !important;
+  color: white;
+  background-color: black;
+}

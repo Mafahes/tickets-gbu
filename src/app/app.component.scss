@@ -1,12 +1,11 @@
 .root-class {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
   background-color: black;
 }
-
 :host ::ng-deep {
   button.mat-primary {
-    background-color: #222b45 !important;
+    background-color: black !important;
     .mat-button-wrapper {
       font-family: 'Inter', sans-serif !important;
     }

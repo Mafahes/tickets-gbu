@@ -77,6 +77,9 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import { HeaderComponent } from './pages/header/header.component';
 import { SafetyBordComponent } from './pages/safety-bord/safety-bord.component';
 import { TicketListComponent } from './pages/ticket-list/ticket-list.component';
+import { TerminalCatListComponent } from './pages/terminal/terminal-cat-list/terminal-cat-list.component';
+import { RoomCatsComponent } from './pages/room/room-cats/room-cats.component';
+import { RoomSubdivisionsComponent } from './pages/room/room-subdivisions/room-subdivisions.component';
 
 registerLocaleData(localeRu, 'ru');
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -111,6 +114,9 @@ export const MY_FORMATS = {
     HeaderComponent,
     SafetyBordComponent,
     TicketListComponent,
+    TerminalCatListComponent,
+    RoomCatsComponent,
+    RoomSubdivisionsComponent,
   ],
     imports: [
       NgxOneSignalModule.forRoot({

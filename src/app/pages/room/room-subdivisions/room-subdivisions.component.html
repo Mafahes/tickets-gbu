@@ -1,0 +1,28 @@
+<div class="container-fluid d-flex flex-column py-3" style="height: 100vh" *ngIf="!!rooms">
+  <div class="row">
+    <div class="col-12">
+      <p class="label">Пульт оператора</p>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-12">
+      <p class="label center">Выбор подразделения</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 px-5">
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="d-flex flex-column"
+        [(ngModel)]="selected">
+        <mat-radio-button class="my-2" color="primary" *ngFor="let option of rooms.data" [value]="option.id">
+          <span class="radio-label ml-4">{{option.name}}</span>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="row h-100 px-4 d-flex flex-column justify-content-end align-items-end">
+      <button (click)="submit()" [disabled]="!selected" mat-raised-button>Далее</button>
+  </div>
+</div>

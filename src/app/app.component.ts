@@ -3,7 +3,6 @@ import {ActivatedRoute, NavigationEnd, Router, Routes} from '@angular/router';
 import {ApiService} from './shared/services/api.service';
 import {Api, ApiTypes} from './shared/configuration';
 import {SignalRService} from './shared/services/signal-r.service';
-import {User} from './shared/interfaces/user';
 import {MatDialog} from '@angular/material/dialog';
 import {ActualizeDialogComponent} from './shared/components/actualize-dialog/actualize-dialog.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -15,7 +14,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class AppComponent implements OnInit{
   title = 'less-adm';
-  user: User;
   constructor(private activeRoute: ActivatedRoute,
               private signalR: SignalRService,
               private dialog: MatDialog,
@@ -23,6 +21,12 @@ export class AppComponent implements OnInit{
               private api: ApiService,
               private router: Router) {}
   route = '';
+  get isTerminal(): any {
+    return this.route.includes('monitor') || this.route.includes('terminal');
+  }
+  get isEmpty(): any {
+    return this.route.includes('room');
+  }
   initialized = false;
   getApiType(): string {
     return localStorage.getItem('apiType');
@@ -63,7 +67,7 @@ export class AppComponent implements OnInit{
   }
   async parseUser(): Promise<void> {
     if (!!localStorage.getItem('api_token')) {
-      this.user = await this.api.getSelf().toPromise();
+      // this.user = await this.api.getSelf().toPromise();
       this.initialized = true;
       // this.signalR.startConnection().then(i => {
       //   this.initialized = true;

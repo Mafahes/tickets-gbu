@@ -6,7 +6,7 @@ import {AppComponent} from '../app.component';
 import {Routes} from '../shared/configuration';
 import {OneSignalService} from 'ngx-onesignal';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ApiService} from "../shared/services/api.service";
+import {ApiService} from '../shared/services/api.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -40,12 +40,12 @@ export class SidenavComponent implements OnInit {
     (window as any).ngxOnesignal = this.onesignal;
   }
   async sub(): Promise<void> {
-    await this.api.setPush(this.onesignal.userId).toPromise();
+    // await this.api.setPush(this.onesignal.userId).toPromise();
     this.snackBar.open(`Уведомления включены`, null, { duration: 2000 });
     this.onesignal.subscribe();
   }
   async unsub(): Promise<void> {
-    await this.api.setPush('').toPromise();
+    // await this.api.setPush('').toPromise();
     this.snackBar.open(`Уведомления отключены`, null, { duration: 2000 });
     this.onesignal.unsubscribe();
   }
