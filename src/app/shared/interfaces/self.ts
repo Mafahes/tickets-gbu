@@ -5,7 +5,7 @@ export interface Session {
   dateStart: Date;
   dateOver?: any;
   dateAdd: Date;
-  pause?: any;
+  pause?: any[];
   mainCategory?: any;
   secondCategory?: any;
 }

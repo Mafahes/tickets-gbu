@@ -8,6 +8,8 @@ import {TerminalCatListComponent} from './pages/terminal/terminal-cat-list/termi
 import {RoomSubdivisionsComponent} from "./pages/room/room-subdivisions/room-subdivisions.component";
 import {RoomCatsComponent} from "./pages/room/room-cats/room-cats.component";
 import {SessionPageComponent} from "./pages/room/session-page/session-page.component";
+import {RoomWindowsComponent} from "./pages/room/room-windows/room-windows.component";
+import {SessionTicketComponent} from "./pages/room/session-ticket/session-ticket.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -16,8 +18,10 @@ const routes: Routes = [
   { path: 'monitor/safety', component: SafetyBordComponent },
   { path: 'terminal/cats', component: TerminalCatListComponent },
   { path: 'room/list', component: RoomSubdivisionsComponent },
-  { path: 'room/list/:id/cats', component: RoomCatsComponent },
+  { path: 'room/list/:id/windows', component: RoomWindowsComponent },
+  { path: 'room/list/:id/windows/:wid/cats', component: RoomCatsComponent },
   { path: 'room/session/:id', component: SessionPageComponent },
+  { path: 'room/session/:id/ticket/:tId', component: SessionTicketComponent },
 ];
 
 @NgModule({

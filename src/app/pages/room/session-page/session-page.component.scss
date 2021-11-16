@@ -29,3 +29,45 @@ p, span {
     font-size: 24px !important;
   }
 }
+.table {
+  max-height: 215px;
+  overflow: auto;
+  border: 2px solid black;
+  .element {
+    border-bottom: 1px solid black;
+  }
+  .element:last-child {
+    border: 0 !important;
+  }
+  .element:hover {
+    span {
+      color: white;
+    }
+    background-color: black;
+  }
+}
+::ng-deep mat-dialog-container {
+  span {
+    font-size: 24px;
+  }
+  .label2 {
+    font-size: 36px;
+    text-align: center;
+  }
+  height: 420px !important;
+  width: 530px !important;
+  .closeButton {
+    padding: 0 !important;
+    ::ng-deep span {
+      font-size: 14px !important;
+    }
+  }
+}
+.submitButton {
+  height: 100px !important;
+}
+.input__numDialogue {
+  border: 0;
+  font-size: 80px;
+  border-bottom: 1px solid black;
+}

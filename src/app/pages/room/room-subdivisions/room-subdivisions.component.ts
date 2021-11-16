@@ -22,7 +22,7 @@ export class RoomSubdivisionsComponent implements OnInit {
   }
   submit(): void {
     if (!!this.selected) {
-      this.router.navigate([`/room/list/${this.selected}/cats`]);
+      this.router.navigate([`/room/list/${this.selected}/windows`]);
     }
   }
 

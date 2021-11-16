@@ -20,8 +20,10 @@ export class RoomCatsComponent implements OnInit {
   mainCat = [];
   secondCat = [];
   roomId;
+  wid
   ngOnInit(): void {
     this.arouter.paramMap.subscribe(async (e) => {
+      this.wid = e.get('wid');
       this.roomId = e.get('id');
       this.cats = await this.api.getCatByRoom(this.roomId).toPromise();
     });
@@ -49,12 +51,13 @@ export class RoomCatsComponent implements OnInit {
     }
   }
   async startSession(): Promise<void> {
-    await this.api.startSession({
+    var res = await this.api.startSession({
       roomId: parseInt(this.roomId, 10),
       mainCategory: this.mainCat.map((e) => ({catId: e})),
-      secondCategory: this.secondCat.map((e) => ({catId: e}))
+      secondCategory: this.secondCat.map((e) => ({catId: e})),
+      windowsId: parseInt(this.wid)
     }).toPromise();
-    this.router.navigate(['']);
+    this.router.navigate(['/room/session/' + res.roomId]);
   }
 
 }

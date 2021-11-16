@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       // await this.app.parseUser();
       let a = await this.api.getSession().toPromise();
       if (a.length > 0) {
-        this.router.navigate(['session/' + a[0].roomId]);
+        this.router.navigate(['/room/session/' + a[0].roomId]);
       } else {
         this.router.navigate(['/room/list']);
       }

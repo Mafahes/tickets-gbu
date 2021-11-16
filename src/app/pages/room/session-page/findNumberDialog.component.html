@@ -1,0 +1,28 @@
+<mat-dialog-content class="mat-typography">
+ <div class="container-fluid">
+   <div class="row">
+     <div class="col-10 d-flex flex-column justify-content-center">
+       <span class="label">Вызов по номеру</span>
+     </div>
+     <div class="col-2">
+       <button class="w-100 closeButton" mat-button mat-dialog-close>X</button>
+     </div>
+     <div class="col-12 p-0 my-3">
+       <mat-divider></mat-divider>
+     </div>
+     <div class="col-12">
+       <span class="label2">
+         Введите номер с клавиатуры
+       </span>
+     </div>
+     <div class="col-12 mt-2 px-5">
+       <input [(ngModel)]="text" class="input__numDialogue w-100"/>
+     </div>
+     <div class="col-12 mt-3 d-flex flex-row justify-content-center align-items-center mt-2 px-5">
+       <button [mat-dialog-close]="text" mat-raised-button class="submitButton w-75">Найти</button>
+     </div>
+   </div>
+ </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+</mat-dialog-actions>

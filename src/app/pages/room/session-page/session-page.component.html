@@ -1,15 +1,19 @@
-<div class="container-fluid d-flex flex-column py-3" style="height: 100vh">
+<div *ngIf="!!session" class="container-fluid d-flex flex-column py-3" style="height: 100vh">
   <div class="row">
     <div class="col-3 d-flex justify-content-start align-items-center">
       <p class="label">Пульт оператора</p>
     </div>
     <div class="col-3 d-flex justify-content-start align-items-center">
-      <p class="label">Время сессии: 10:00:00</p>
+      <p class="label">Время сессии: {{timeSeconds}}</p>
     </div>
-    <div class="col-6 d-flex flex-row justify-content-between">
-      <button mat-raised-button>Пауза</button>
-      <button mat-raised-button>Завершить сессию</button>
-      <button mat-raised-button>Статистика</button>
+    <div class="col-2 d-flex flex-row justify-content-between">
+      <button class="w-100" (click)="switchPause()" mat-raised-button>{{session.pause.length > 0 ? 'Продолжить' : 'Пауза'}}</button>
+    </div>
+    <div class="col-2 d-flex flex-row justify-content-between">
+      <button class="w-100" (click)="stopSession()" mat-raised-button>Завершить сессию</button>
+    </div>
+    <div class="col-2 d-flex flex-row justify-content-between">
+      <button class="w-100" mat-raised-button>Статистика</button>
     </div>
   </div>
   <div class="row my-3">
@@ -21,17 +25,21 @@
   <div class="row">
     <div class="col-3 d-flex flex-column justify-content-start align-items-center ticket-card">
       <p class="label">клиент</p>
-      <p class="label">У12</p>
-      <p class="label">Услуга 1</p>
+      <p class="label">{{activeTicket === null ? 'Отсутствует' : queue[activeTicket]?.name || '-'}}</p>
+      <p class="label">{{activeTicket === null ? 'Отсутствует' : queue[activeTicket]?.service?.name || '-'}}</p>
     </div>
     <div class="col-3 d-flex justify-content-center flex-column align-items-start" style="gap: 15px">
-      <p class="label">Очередь: 4</p>
-      <p class="label">Следующий: У13</p>
+      <p class="label">Очередь: {{queue.length}}</p>
+      <p class="label">Следующий: {{activeTicket === null || queue.length === 1 ? 'Отсутствует' : queue.length > activeTicket + 1 ? queue[activeTicket + 1]?.name || '-' : queue[0]?.name || '-'}}</p>
     </div>
-    <div class="col-6 d-flex flex-row justify-content-between align-items-center">
-      <button mat-raised-button>Начать<br/>обслуживание</button>
-      <button mat-raised-button>Отложить</button>
-      <button mat-raised-button>Перенаправить</button>
+    <div class="col-2 d-flex flex-row justify-content-between align-items-center">
+      <button (click)="getTicket()" [disabled]="session.pause.length > 0 || activeTicket === null" class="w-100" mat-raised-button>Начать<br/>обслуживание</button>
+    </div>
+    <div class="col-2 d-flex flex-row justify-content-between align-items-center">
+      <button class="w-100" [disabled]="session.pause.length > 0 || activeTicket === null" mat-raised-button>Отложить</button>
+    </div>
+    <div class="col-2 d-flex flex-row justify-content-between align-items-center">
+      <button class="w-100" [disabled]="session.pause.length > 0 || activeTicket === null" mat-raised-button>Перенаправить</button>
     </div>
   </div>
   <div class="row mt-4 mb-2">
@@ -47,12 +55,24 @@
   </div>
   <div class="row mt-3">
     <div class="col-3">
-      <button class="w-100" mat-raised-button>Вызов<br/>по номеру</button>
+      <button [disabled]="session.pause.length > 0" (click)="callByNumber()" class="w-100" mat-raised-button>Вызов<br/>по номеру</button>
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-3">
-      <button class="w-100" mat-raised-button>Вызов из списка<br/>отложенных</button>
+      <button [disabled]="session.pause.length > 0" class="w-100" mat-raised-button>Вызов из списка<br/>отложенных</button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 mb-4">
+      <span class="label ml-4">Очередь</span>
+    </div>
+    <div class="col-7">
+      <div class="table w-100">
+        <div *ngFor="let item of queue; let i = index" (click)="changeActiveTicket(i)" class="py-3 hover-pointer element pl-4">
+          <span>{{item?.name || '-'}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
