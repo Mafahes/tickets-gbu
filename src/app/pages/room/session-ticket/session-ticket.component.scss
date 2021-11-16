@@ -1,0 +1,81 @@
+.label {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  font-family: HumanistRegular, sans-serif;
+}
+button {
+  border-radius: 0;
+  color: white;
+  background-color: black;
+  padding: 5px 20px;
+  ::ng-deep span {
+    font-family: HumanistRegular, sans-serif;
+    font-size: 24px;
+  }
+}
+p, span {
+  font-family: HumanistRegular, sans-serif;
+  line-height: 1em !important;
+}
+.ticket-card {
+  p:nth-child(1) {
+    font-size: 18px !important;
+  }
+  p:nth-child(2) {
+    font-size: 96px !important;
+    font-family: HumanistBold, sans-serif;
+  }
+  p:nth-child(3) {
+    font-size: 24px !important;
+  }
+}
+.timer {
+  font-size: 64px;
+  font-family: HumanistBold, sans-serif;
+}
+.table {
+  max-height: 215px;
+  overflow: auto;
+  border: 2px solid black;
+  .element {
+    border-bottom: 1px solid black;
+  }
+  .element:last-child {
+    border: 0 !important;
+  }
+  .element:hover {
+    span {
+      color: white;
+    }
+    background-color: black;
+  }
+}
+::ng-deep mat-dialog-container {
+  span {
+    font-size: 24px;
+  }
+  .label2 {
+    font-size: 36px;
+    text-align: center;
+  }
+  height: 420px !important;
+  width: 530px !important;
+  .closeButton {
+    padding: 0 !important;
+    ::ng-deep span {
+      font-size: 14px !important;
+    }
+  }
+}
+.submitButton {
+  height: 100px !important;
+}
+.input__numDialogue {
+  border: 0;
+  font-size: 80px;
+  border-bottom: 1px solid black;
+}
+p, span {
+  color: black;
+}

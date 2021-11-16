@@ -1,1 +1,64 @@
-<p>session-ticket works!</p>
+<div class="container-fluid d-flex flex-column py-3" style="height: 100vh">
+  <div class="row">
+    <div class="col-3 d-flex justify-content-start align-items-center">
+      <p class="label">Пульт оператора</p>
+    </div>
+    <div class="col-3 d-flex justify-content-start align-items-center">
+      <p class="label">Время сессии:</p>
+    </div>
+    <div class="col-2 d-flex flex-row justify-content-between">
+      <button class="w-100"  mat-raised-button>Пауза</button>
+    </div>
+    <div class="col-2 d-flex flex-row justify-content-between">
+      <button class="w-100" mat-raised-button>Завершить сессию</button>
+    </div>
+    <div class="col-2 d-flex flex-row justify-content-between">
+      <button class="w-100" mat-raised-button>Выход</button>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col-12">
+      <mat-divider></mat-divider>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 d-flex flex-column justify-content-start align-items-center ticket-card">
+      <p class="label">клиент</p>
+      <p class="label my-3">У12</p>
+      <p class="label">Услуга 1</p>
+    </div>
+    <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+      <p class="timer my-3">00:02:44</p>
+    </div>
+    <div class="col-4 d-flex justify-content-center flex-column align-items-start" style="gap: 15px">
+      <p class="label">Очередь: 12</p>
+      <p class="label">Следующий:12</p>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12 d-flex flex-row justify-content-center align-items-center" style="gap: 40px">
+      <button class="p-3 px-5" mat-raised-button>Отложить</button>
+      <button class="p-3 px-5" mat-raised-button>Перенаправить</button>
+      <button class="p-3 px-5" mat-raised-button>Завершить прием</button>
+    </div>
+  </div>
+  <div class="row my-5">
+    <div class="col-12">
+      <mat-divider></mat-divider>
+
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 mb-4">
+      <span class="label ml-4">Очередь</span>
+    </div>
+    <div class="col-7">
+      <div class="table w-100">
+        <div class="py-3 hover-pointer element pl-4">
+          <span>test</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
