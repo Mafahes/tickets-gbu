@@ -47,16 +47,9 @@ export class Roles {
 }
 export class Routes {
   public static routeList = [
-    { path: 'porters-orders', title: 'Заявки грузчиков', icon: 'work', line: false, access: ['porterprovider', 'admin'] },
-    { path: 'orders', title: 'Заявки', icon: 'list_alt', line: false, access: ['dispatcher', 'admin'] },
-    { path: 'agent-orders', title: 'История заявок', icon: 'list_alt', line: false, access: ['agent'] },
-    { path: 'transport-orders', title: 'Заявки на транспорт', icon: 'directions_car', line: false, access: ['transport', 'admin'] },
-    { path: 'provider-orders', title: 'Заявки поставщикам', icon: 'shopping_cart', line: false, access: ['dispatcher', 'admin']},
-    { path: 'agent-orders-create', title: 'Оформить заявку', icon: 'add', line: false, access: ['agent'] },
-    { path: 'products', title: 'Склад', icon: 'home', line: false, access: ['admin', 'provider', 'dispatcher'] },
-    { path: 'provider-orders', title: 'Заявки на склад', icon: 'list_alt', line: false, access: ['provider'] },
-    { path: 'users', title: 'Пользователи', icon: 'account_circle', line: false, access: ['admin'] },
-    { path: 'product-list', title: 'Категории товаров', icon: 'format_list_bulleted', line: false, access: ['agent', 'admin'] },
-    { path: 'columbar-edit', title: 'Колумбарные ниши', icon: 'format_list_bulleted', line: false, access: ['manager', 'admin'] }
+    { path: 'admin/postpone', title: 'Причины отложения', icon: 'list_alt', line: false, access: [] },
+    { path: 'admin/over', title: 'Причины завершения', icon: 'list_alt', line: false, access: [] },
+    { path: 'admin/redirect', title: 'Причины перенаправления', icon: 'list_alt', line: false, access: [] },
+    { path: 'admin/rooms', title: 'Залы', icon: 'list_alt', line: false, access: [] }
   ];
 }

@@ -1,0 +1,8 @@
+<form [formGroup]="form">
+  <p class="label">Создание причины завершения</p>
+  <div class="d-flex flex-column" style="gap: 20px">
+    <input placeholder="Название" class="formInput" formControlName="name"/>
+    <input placeholder="Описание" class="formInput" formControlName="description"/>
+  </div>
+  <button mat-raised-button class="mt-2" (click)="save()">Сохранить</button>
+</form>

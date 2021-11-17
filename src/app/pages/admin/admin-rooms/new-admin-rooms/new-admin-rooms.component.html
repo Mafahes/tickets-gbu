@@ -1,0 +1,45 @@
+<form [formGroup]="form">
+  <p class="label">Создание зала</p>
+  <div class="d-flex flex-column" style="gap: 20px">
+    <input placeholder="Название" class="formInput" formControlName="name"/>
+    <input placeholder="Описание" class="formInput" formControlName="description"/>
+    <input placeholder="Адрес" class="formInput" formControlName="address"/>
+  </div>
+  <p class="label mt-4">Категории</p>
+  <div formArrayName="category" class="d-flex flex-column" style="gap: 10px">
+    <div *ngFor="let item of getCatControls()['controls']; let i = index" class="cat-card d-flex flex-column" style="gap: 5px" formGroupName="{{i}}">
+      <div class="row justify-content-end align-items-end mr-2">
+        <mat-icon (click)="removeCatControl(i)" class="hover-pointer">close</mat-icon>
+      </div>
+      <input class="formInput w-100" placeholder="Название" formControlName="name"/>
+      <input class="formInput w-100" placeholder="Описание" formControlName="description"/>
+      <input class="formInput w-100" placeholder="Буква на талоне" formControlName="letter"/>
+      <div formArrayName="services" class="d-flex flex-column" style="gap: 10px">
+        <div *ngFor="let item of getServiceControl(i)['controls']; let i2 = index" class="cat-card d-flex flex-column" style="gap: 5px" formGroupName="{{i2}}">
+          <div class="row justify-content-end align-items-end mr-2">
+            <mat-icon (click)="removeServiceControl(i, i2)" class="hover-pointer">close</mat-icon>
+          </div>
+          <input class="formInput w-100" placeholder="Название" formControlName="name"/>
+          <input class="formInput w-100" placeholder="Описание" formControlName="description"/>
+          <input class="formInput w-100" placeholder="Буква на талоне" formControlName="letter"/>
+        </div>
+        <button mat-raised-button (click)="addServiceControl(i)"> Добавить сервис</button>
+      </div>
+    </div>
+  </div>
+  <button mat-raised-button class="mt-2" (click)="addCatControl()">Добавить категорию</button>
+  <p class="label mt-4">Окна</p>
+  <div formArrayName="windows" class="d-flex flex-column" style="gap: 10px">
+    <div *ngFor="let item of getWindowControls()['controls']; let i = index" class="cat-card d-flex flex-column" style="gap: 5px" formGroupName="{{i}}">
+      <div class="row justify-content-end align-items-end mr-2">
+        <mat-icon (click)="removeWindowControl(i)" class="hover-pointer">close</mat-icon>
+      </div>
+      <input class="formInput w-100" placeholder="Название" formControlName="name"/>
+      <input class="formInput w-100" placeholder="Описание" formControlName="description"/>
+      <input class="formInput w-100" placeholder="Буква на талоне" formControlName="letter"/>
+    </div>
+  </div>
+  <button mat-raised-button class="mt-2" (click)="addWindowControl()">Добавить окно</button>
+  <mat-divider class="my-3 w-100"></mat-divider>
+  <button mat-raised-button class="mt-2" (click)="save()">Сохранить</button>
+</form>

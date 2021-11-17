@@ -34,6 +34,9 @@ export class ApiService {
   getRooms(): Observable<RoomObject> {
     return this.http.get<RoomObject>(`${Api.API_LINK}api/rooms`);
   }
+  createRoom(data): Observable<any> {
+    return this.http.post<any>(`${Api.API_LINK}api/rooms`, data);
+  }
   getWindows(id): Observable<Window[]> {
     return this.http.get<Window[]>(`${Api.API_LINK}api/rooms/windows?roomId=${id}`)
       .pipe(map(e => e.map((e2) => ({...e2, checked: false}))));
@@ -76,6 +79,15 @@ export class ApiService {
   }
   overTicket(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/tickets/over`, data);
+  }
+  createOverReason(data): Observable<any> {
+    return this.http.post<any>(`${Api.API_LINK}api/reasonover`, data);
+  }
+  createPostponeReason(data): Observable<any> {
+    return this.http.post<any>(`${Api.API_LINK}api/reasonpostpone`, data);
+  }
+  createRedirectReason(data): Observable<any> {
+    return this.http.post<any>(`${Api.API_LINK}api/reasonredirect`, data);
   }
   postponeTicket(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/tickets/postpone`, data);

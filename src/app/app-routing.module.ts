@@ -10,6 +10,14 @@ import {RoomCatsComponent} from "./pages/room/room-cats/room-cats.component";
 import {SessionPageComponent} from "./pages/room/session-page/session-page.component";
 import {RoomWindowsComponent} from "./pages/room/room-windows/room-windows.component";
 import {SessionTicketComponent} from "./pages/room/session-ticket/session-ticket.component";
+import {AdminRoomsComponent} from "./pages/admin/admin-rooms/admin-rooms.component";
+import {ReasonOverComponent} from "./pages/admin/reason-over/reason-over.component";
+import {ReasonPostponeComponent} from "./pages/admin/reason-postpone/reason-postpone.component";
+import {ReasonRedirectComponent} from "./pages/admin/reason-redirect/reason-redirect.component";
+import {NewAdminRoomsComponent} from "./pages/admin/admin-rooms/new-admin-rooms/new-admin-rooms.component";
+import {NewReasonOverComponent} from "./pages/admin/reason-over/new-reason-over/new-reason-over.component";
+import {NewReasonPostponeComponent} from "./pages/admin/reason-postpone/new-reason-postpone/new-reason-postpone.component";
+import {NewReasonRedirectComponent} from "./pages/admin/reason-redirect/new-reason-redirect/new-reason-redirect.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -22,6 +30,16 @@ const routes: Routes = [
   { path: 'room/list/:id/windows/:wid/cats', component: RoomCatsComponent },
   { path: 'room/session/:id', component: SessionPageComponent },
   { path: 'room/session/:id/ticket/:tId', component: SessionTicketComponent },
+  { path: 'admin/rooms', component: AdminRoomsComponent, pathMatch: 'full' },
+  { path: 'admin/rooms/new', component: NewAdminRoomsComponent, pathMatch: 'full' },
+  { path: 'admin/over', component: ReasonOverComponent },
+  { path: 'admin/over/new', component: NewReasonOverComponent, pathMatch: 'full' },
+  { path: 'admin/postpone', component: ReasonPostponeComponent },
+  { path: 'admin/postpone/new', component: NewReasonPostponeComponent, pathMatch: 'full' },
+  { path: 'admin/redirect', component: ReasonRedirectComponent },
+  { path: 'admin/redirect/new', component: NewReasonRedirectComponent, pathMatch: 'full' },
+
+
 ];
 
 @NgModule({

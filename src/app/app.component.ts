@@ -27,6 +27,9 @@ export class AppComponent implements OnInit{
     return this.route.includes('monitor') || this.route.includes('terminal');
   }
   get isEmpty(): any {
+    if(this.route.includes('/admin/rooms')) {
+      return false;
+    }
     return this.route.includes('room');
   }
   initialized = false;

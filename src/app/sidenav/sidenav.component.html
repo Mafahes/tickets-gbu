@@ -15,9 +15,9 @@
 <!--  <button (click)="app.getSelfRoute()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">-->
 <!--    <mat-icon>account_box</mat-icon>-->
 <!--  </button>-->
-  <button (click)="subscribed ? unsub() : sub()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon><mat-icon>{{subscribed ? 'notifications_active' : 'notifications_off'}}</mat-icon></mat-icon>
-  </button>
+<!--  <button (click)="subscribed ? unsub() : sub()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">-->
+<!--    <mat-icon><mat-icon>{{subscribed ? 'notifications_active' : 'notifications_off'}}</mat-icon></mat-icon>-->
+<!--  </button>-->
   <button (click)="app.exit()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>exit_to_app</mat-icon>
   </button>
@@ -32,8 +32,7 @@
       <ng-container *ngFor="let item of routes; let i = index">
         <div class="my-3" *ngIf="i === 0"></div>
         <mat-divider *ngIf="item.line"></mat-divider>
-        <a mat-list-item *ngIf="!item.line && item.access.includes(app?.user?.role?.name)" routerLinkActive="active-menu-link" [routerLink]="item.path">
-          <mat-icon style="flex: 1" *ngIf="!item.line">{{item.icon}}</mat-icon>
+        <a mat-list-item *ngIf="!item.line" routerLinkActive="active-menu-link" [routerLink]="item.path">
           <span style="flex: 3" *ngIf="!item.line" class="item-list__text">{{item.title}}</span>
         </a>
       </ng-container>
