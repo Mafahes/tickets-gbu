@@ -68,7 +68,19 @@ export class ApiService {
   getReasons(): Observable<Reason[]> {
     return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonover`);
   }
+  getPostpones(): Observable<Reason[]> {
+    return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonpostpone`);
+  }
+  getReasonRedirects(): Observable<Reason[]> {
+    return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonredirect`);
+  }
   overTicket(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/tickets/over`, data);
+  }
+  postponeTicket(data): Observable<any> {
+    return this.http.post<any>(`${Api.API_LINK}api/tickets/postpone`, data);
+  }
+  redirectTicket(data): Observable<any> {
+    return this.http.post<any>(`${Api.API_LINK}api/tickets/redirect`, data);
   }
 }

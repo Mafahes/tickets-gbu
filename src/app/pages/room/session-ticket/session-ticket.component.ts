@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Session} from "../../../shared/interfaces/self";
 import {Queue} from "../../../shared/services/queue";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ApiService} from "../../../shared/services/api.service";
-import {MatDialog} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {SessionPageDialogComponent} from "../session-page/session-page.component";
 import {Tickets} from "../../../shared/interfaces/myTickets";
 import {Reason} from "../../../shared/interfaces/reason";
@@ -104,12 +104,32 @@ export class SessionTicketComponent implements OnInit {
       this.parseData();
     }
   }
-  async endTicket(): Promise<void> {
-    const dialogRef = this.dialog.open(TicketEndComponent);
+  async sendDialog(type = 1): Promise<void> {
+    const dialogRef = this.dialog.open(TicketEndComponent, {
+      data: type
+    });
 
     dialogRef.afterClosed().subscribe(async (result) => {
-      await this.api.overTicket({...result, ticketId: parseInt(this.ticketId)}).toPromise();
-      this.router.navigate(['room/session/' + this.sessionId])
+      if(!result) {
+        return;
+      }
+      switch (type) {
+        case 1: {
+          await this.api.overTicket({...result, ticketId: parseInt(this.ticketId)}).toPromise();
+          this.router.navigate(['room/session/' + this.sessionId])
+          break;
+        }
+        case 2: {
+          await this.api.redirectTicket({...result, ticketId: parseInt(this.ticketId)}).toPromise();
+          this.router.navigate(['room/session/' + this.sessionId])
+          break;
+        }
+        case 3: {
+          await this.api.postponeTicket({...result, ticketId: parseInt(this.ticketId)}).toPromise();
+          this.router.navigate(['room/session/' + this.sessionId])
+          break;
+        }
+      }
     });
   }
 }
@@ -120,11 +140,29 @@ export class SessionTicketComponent implements OnInit {
 })
 export class TicketEndComponent {
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    @Inject(MAT_DIALOG_DATA) public data: any // type 1 - завершить, type 2 - перенаправить, type 3 - отложить
   ) {
-    this.api.getReasons().subscribe((e) => {
-      this.reasons = e;
-    });
+    switch (this.data) {
+      case 1: {
+        this.api.getReasons().subscribe((e) => {
+          this.reasons = e;
+        });
+        break;
+      }
+      case 2: {
+        this.api.getReasonRedirects().subscribe((e) => {
+          this.reasons = e;
+        });
+        break;
+      }
+      case 3: {
+        this.api.getPostpones().subscribe((e) => {
+          this.reasons = e;
+        });
+        break;
+      }
+    }
   }
   reasons: Reason[] = [];
   selected;
