@@ -6,6 +6,7 @@ import {SignalRService} from './shared/services/signal-r.service';
 import {MatDialog} from '@angular/material/dialog';
 import {ActualizeDialogComponent} from './shared/components/actualize-dialog/actualize-dialog.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Session} from "./shared/interfaces/self";
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit{
               private api: ApiService,
               private router: Router) {}
   route = '';
+  sessions: Session[] = [];
   get isTerminal(): any {
     return this.route.includes('monitor') || this.route.includes('terminal');
   }
@@ -30,6 +32,10 @@ export class AppComponent implements OnInit{
   initialized = false;
   getApiType(): string {
     return localStorage.getItem('apiType');
+  }
+  async getSessions(): Promise<Session[]> {
+    this.sessions = await this.api.getSession().toPromise();
+    return this.sessions;
   }
   switchApi(type: boolean): void {
     if (type) {

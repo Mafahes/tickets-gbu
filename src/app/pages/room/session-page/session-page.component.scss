@@ -34,6 +34,9 @@ p, span {
   overflow: auto;
   border: 2px solid black;
   .element {
+    -webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
     border-bottom: 1px solid black;
   }
   .element:last-child {
@@ -43,6 +46,9 @@ p, span {
     span {
       color: white;
     }
+    -webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
     background-color: black;
   }
 }
@@ -70,4 +76,10 @@ p, span {
   border: 0;
   font-size: 80px;
   border-bottom: 1px solid black;
+}
+.active {
+  background-color: lightgray;
+  -webkit-transition: background-color 400ms linear;
+  -ms-transition: background-color 400ms linear;
+  transition: background-color 400ms linear;
 }

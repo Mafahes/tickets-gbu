@@ -17,7 +17,12 @@ export class LoginComponent implements OnInit {
     code: [null, Validators.required]
   });
   loading = false;
-  constructor(private fb: FormBuilder, private app: AppComponent, private router: Router, private api: ApiService, private snackBar: MatSnackBar) { }
+  constructor(
+    private fb: FormBuilder,
+    private app: AppComponent,
+    private router: Router,
+    private api: ApiService,
+    private snackBar: MatSnackBar) { }
   ngOnInit(): void {
   }
   async submitLogin(code = null): Promise<void> {
@@ -26,7 +31,7 @@ export class LoginComponent implements OnInit {
       this.loading = false;
       localStorage.setItem('api_token', e.text);
       // await this.app.parseUser();
-      let a = await this.api.getSession().toPromise();
+      let a = await this.app.getSessions();
       if (a.length > 0) {
         this.router.navigate(['/room/session/' + a[0].roomId]);
       } else {

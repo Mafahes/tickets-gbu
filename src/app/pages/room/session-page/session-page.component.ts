@@ -6,6 +6,7 @@ import {Session} from "../../../shared/interfaces/self";
 import {Queue} from "../../../shared/services/queue";
 import {queue} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
+import {AppComponent} from "../../../app.component";
 
 @Component({
   selector: 'app-session-page',
@@ -23,6 +24,7 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackBar: MatSnackBar,
     public api: ApiService,
+    private app: AppComponent,
     private dialog: MatDialog,
     private arouter: ActivatedRoute
   ) { }
@@ -33,7 +35,7 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     return result;
   }
   async parseData(): Promise<void> {
-    let a = await this.api.getSession().toPromise();
+    let a = this.app.sessions;
     this.queue = await this.api.getQueue().toPromise();
     if(this.queue.length > 0) {
       this.activeTicket = 0;
@@ -60,8 +62,11 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     clearInterval(this.interval);
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.arouter.paramMap.subscribe((e) => this.sessionId = e.get('id'))
+    if(this.app.sessions.length === 0) {
+      await this.app.getSessions();
+    }
     this.parseData();
   }
   async stopSession(): Promise<void> {

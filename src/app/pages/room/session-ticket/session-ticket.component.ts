@@ -1,13 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Session} from "../../../shared/interfaces/self";
 import {Queue} from "../../../shared/services/queue";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ApiService} from "../../../shared/services/api.service";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {SessionPageDialogComponent} from "../session-page/session-page.component";
 import {Tickets} from "../../../shared/interfaces/myTickets";
 import {Reason} from "../../../shared/interfaces/reason";
+import {AppComponent} from "../../../app.component";
 
 @Component({
   selector: 'app-session-ticket',
@@ -16,7 +15,6 @@ import {Reason} from "../../../shared/interfaces/reason";
 })
 export class SessionTicketComponent implements OnInit {
 
-  session: Session;
   queue: Queue[] = [];
   myTicket: Tickets;
   timer = 0;
@@ -26,12 +24,14 @@ export class SessionTicketComponent implements OnInit {
   sessionId;
   ticketId;
   constructor(
+    public app: AppComponent,
     private router: Router,
     private snackBar: MatSnackBar,
     public api: ApiService,
     private dialog: MatDialog,
     private arouter: ActivatedRoute
-  ) { }
+  ) {
+  }
   get timeSeconds(): any {
     let date = new Date(null);
     date.setSeconds(this.timer);
@@ -48,18 +48,16 @@ export class SessionTicketComponent implements OnInit {
     return result;
   }
   async parseData(): Promise<void> {
-    let a = await this.api.getSession().toPromise();
-    this.session = a[0];
     this.queue = await this.api.getQueue().toPromise();
     let t = await this.api.getMyTickets().toPromise();
     this.myTicket = t.find((e) => e.id === parseInt(this.ticketId));
-    if(this.session.id !== parseInt(this.sessionId) || !this.myTicket) {
+    if(this.app.sessions[0].id !== parseInt(this.sessionId) || !this.myTicket) {
       this.router.navigate(['/']);
     }
     if(this.queue.length > 0) {
       this.activeTicket = 0;
     }
-    this.timer = new Date().getTime() - new Date(a[0].dateStart).getTime();
+    this.timer = new Date().getTime() - new Date(this.app.sessions[0].dateStart).getTime();
     this.timer = Math.floor(this.timer/1000);
     this.ticketTimer = new Date().getTime() - new Date(this.myTicket.dateStart).getTime();
     this.ticketTimer = Math.floor(this.ticketTimer/1000);
@@ -80,12 +78,15 @@ export class SessionTicketComponent implements OnInit {
     clearInterval(this.interval);
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.arouter.paramMap.subscribe((e) => {
         this.sessionId = e.get('id');
         this.ticketId = e.get('tId');
       }
     )
+    if(this.app.sessions.length === 0) {
+      await this.app.getSessions();
+    }
     this.parseData();
   }
   async stopSession(): Promise<void> {
@@ -96,7 +97,7 @@ export class SessionTicketComponent implements OnInit {
     })
   }
   async switchPause(): Promise<void> {
-    if(this.session.pause === null || this.session.pause.length === 0) {
+    if(this.app.sessions[0].pause === null || this.app.sessions[0].pause.length === 0) {
       await this.api.pauseSession().toPromise();
       this.parseData();
     } else {
@@ -115,17 +116,17 @@ export class SessionTicketComponent implements OnInit {
       }
       switch (type) {
         case 1: {
-          await this.api.overTicket({...result, ticketId: parseInt(this.ticketId)}).toPromise();
+          await this.api.overTicket({...result, overId: result.id, ticketId: parseInt(this.ticketId)}).toPromise();
           this.router.navigate(['room/session/' + this.sessionId])
           break;
         }
         case 2: {
-          await this.api.redirectTicket({...result, ticketId: parseInt(this.ticketId)}).toPromise();
+          await this.api.redirectTicket({...result, redirectId: result.id, ticketId: parseInt(this.ticketId)}).toPromise();
           this.router.navigate(['room/session/' + this.sessionId])
           break;
         }
         case 3: {
-          await this.api.postponeTicket({...result, ticketId: parseInt(this.ticketId)}).toPromise();
+          await this.api.postponeTicket({...result, postponeId: result.id, ticketId: parseInt(this.ticketId)}).toPromise();
           this.router.navigate(['room/session/' + this.sessionId])
           break;
         }
