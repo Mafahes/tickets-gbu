@@ -59,7 +59,8 @@ export class AppComponent implements OnInit{
     }
     this.router.events.subscribe((e) => {
       if (e instanceof NavigationEnd) {
-        // this.checkAuth(e.url);
+        console.log(e);
+        this.checkAuth(e.url);
         this.route = e.url;
       }
     });
@@ -83,11 +84,18 @@ export class AppComponent implements OnInit{
     localStorage.removeItem('api_token');
     this.router.navigate(['/login']);
   }
-  checkAuth(route = '/'): void {
+  async checkAuth(route = '/'): Promise<void> {
     if (localStorage.getItem('api_token') === null) {
       this.router.navigate(['/login']);
     } else {
-      this.router.navigate([route]);
+      var a = await this.api.getSession().toPromise();
+      if(route === '/') {
+        if(a.length > 0) {
+          this.router.navigate(['room/session/' + a[0].id]);
+        } else {
+          this.router.navigate([route]);
+        }
+      }
     }
   }
 }

@@ -25,8 +25,8 @@
   <div class="row">
     <div class="col-3 d-flex flex-column justify-content-start align-items-center ticket-card">
       <p class="label">клиент</p>
-      <p class="label">{{activeTicket === null ? 'Отсутствует' : queue[activeTicket]?.name || '-'}}</p>
-      <p class="label">{{activeTicket === null ? 'Отсутствует' : queue[activeTicket]?.service?.name || '-'}}</p>
+      <p class="label">{{activeTicket === null ? 'Пусто' : queue[activeTicket]?.name || '-'}}</p>
+      <p class="label">{{activeTicket === null ? 'Пусто' : queue[activeTicket]?.service?.name || '-'}}</p>
     </div>
     <div class="col-3 d-flex justify-content-center flex-column align-items-start" style="gap: 15px">
       <p class="label">Очередь: {{queue.length}}</p>

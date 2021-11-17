@@ -9,6 +9,8 @@ import {RoomObject} from "../interfaces/room";
 import {Cat} from "../interfaces/Cat";
 import {Queue} from "./queue";
 import {Window} from "../interfaces/window";
+import {Tickets} from "../interfaces/myTickets";
+import {Reason} from "../interfaces/reason";
 
 
 @Injectable({
@@ -59,5 +61,14 @@ export class ApiService {
     //   .pipe(
     //   map(e => e.map(e2 => ({...e2, name: `${e2?.service?.letter || '-'}${e2.id}`})))
     // );
+  }
+  getMyTickets(): Observable<Tickets[]> {
+    return this.http.get<Tickets[]>(`${Api.API_LINK}api/tickets/my`);
+  }
+  getReasons(): Observable<Reason[]> {
+    return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonover`);
+  }
+  overTicket(data): Observable<any> {
+    return this.http.post<any>(`${Api.API_LINK}api/tickets/over`, data);
   }
 }

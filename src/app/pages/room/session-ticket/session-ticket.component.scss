@@ -59,7 +59,7 @@ p, span {
     font-size: 36px;
     text-align: center;
   }
-  height: 420px !important;
+  height: 650px !important;
   width: 530px !important;
   .closeButton {
     padding: 0 !important;
@@ -78,4 +78,16 @@ p, span {
 }
 p, span {
   color: black;
+}
+.radio-group {
+  max-height: 300px;
+  overflow: auto;
+}
+.input-comment {
+  border: 0;
+  border-bottom: 1px solid black;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  font-family: HumanistRegular, sans-serif;
+  font-size: 18px;
 }

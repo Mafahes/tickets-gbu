@@ -1,0 +1,46 @@
+<mat-dialog-content class="mat-typography">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-10 d-flex flex-column justify-content-center">
+        <span class="label">Завершить</span>
+      </div>
+      <div class="col-2">
+        <button class="w-100 closeButton" mat-button mat-dialog-close>X</button>
+      </div>
+      <div class="col-12 p-0 my-3">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-12 d-flex flex-row justify-content-center align-items-center">
+       <span class="label2">
+         Укажите причину
+       </span>
+      </div>
+      <div class="col-12 mt-2">
+
+        <mat-radio-group
+          [(ngModel)]="selected"
+          aria-labelledby="example-radio-group-label"
+          class="d-flex flex-column radio-group">
+          <mat-radio-button class="my-2" color="primary" *ngFor="let option of reasons" [value]="option.id">
+            <span class="radio-label ml-4">{{option.name}}</span>
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-12 p-0 my-3">
+        <mat-divider></mat-divider>
+      </div>
+      <div class="col-12 px-5 d-flex flex-column justify-content-center">
+        <span class="label">Комментарий</span>
+      </div>
+      <div class="col-8 d-flex mt-2 flex-column" style="gap: 10px">
+        <input [(ngModel)]="inits" placeholder="ФИО" class="input-comment"/>
+        <input [(ngModel)]="comment" placeholder="Комментарий" class="input-comment"/>
+      </div>
+      <div class="col-4 d-flex justify-content-end align-items-end">
+        <button [mat-dialog-close]="{overId: selected || null, comment: comment, inits: inits}" mat-raised-button>Готово</button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+</mat-dialog-actions>

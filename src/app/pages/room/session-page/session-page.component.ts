@@ -41,6 +41,11 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     this.timer = new Date().getTime() - new Date(a[0].dateStart).getTime();
     this.timer = Math.floor(this.timer/1000);
     this.session = a[0];
+    let tickets = await this.api.getMyTickets().toPromise();
+    if(tickets.length > 0) {
+      this.router.navigate([`/room/session/${this.sessionId}/ticket/${tickets[0].id}`])
+      return;
+    }
     try {
       clearInterval(this.interval);
     } catch (e) {
@@ -91,7 +96,7 @@ export class SessionPageComponent implements OnInit, OnDestroy {
   }
 }
 @Component({
-  selector: 'dialog-content-example-dialog',
+  selector: 'dialog-find-number',
   templateUrl: 'findNumberDialog.component.html',
   styleUrls: ['./session-page.component.scss']
 })

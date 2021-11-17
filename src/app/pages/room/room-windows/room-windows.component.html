@@ -1,3 +1,7 @@
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center py-3" style="height: 100vh" *ngIf="!windows.length">
+  <p class="label mb-5">Данные с окнами пустые</p>
+  <button mat-raised-button routerLink="/room/list">Назад</button>
+</div>
 <div class="container-fluid d-flex flex-column py-3" style="height: 100vh" *ngIf="!!windows.length">
   <div class="row">
     <div class="col-12">

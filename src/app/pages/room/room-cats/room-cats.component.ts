@@ -57,7 +57,7 @@ export class RoomCatsComponent implements OnInit {
       secondCategory: this.secondCat.map((e) => ({catId: e})),
       windowsId: parseInt(this.wid)
     }).toPromise();
-    this.router.navigate(['/room/session/' + res.roomId]);
+    this.router.navigate(['/room/session/' + res.id]);
   }
 
 }
