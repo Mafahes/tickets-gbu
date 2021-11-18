@@ -56,6 +56,9 @@ export class ApiService {
   getTicket(id): Observable<any> {
     return this.http.get<any>(`${Api.API_LINK}api/tickets/take?ticketId=${id}`);
   }
+  registerTicket(id): Observable<any> {
+    return this.http.get<any>(`${Api.API_LINK}api/tickets/register?serviceId=${id}`);
+  }
   findTicket(text): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/tickets/find?name=${text}`, null);
   }

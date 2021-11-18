@@ -1,11 +1,11 @@
 <div class="container-fluid appbar">
   <div class="row header pt-4">
     <div class="col-2 d-flex flex-column time-labels">
-      <p>11:04</p>
-      <p>20 октября</p>
+      <p>{{currentDate | date: 'HH:mm'}}</p>
+      <p>{{currentDate | date: 'dd MMMM'}}</p>
     </div>
     <div class="col-5 d-flex flex-column pleasure-text">
-      <p>Пожалуйста, выберите<br>категорию услуги</p>
+      <p>Пожалуйста, выберите<br>{{type === 1 ? 'категорию услуги' : 'услугу'}}</p>
     </div>
     <div class="col-2 justify-content-center align-items-center d-flex flex-column">
       <input class="search-panel w-100" placeholder="Поиск..."/>
@@ -23,13 +23,31 @@
     </div>
   </div>
 </div>
-<div class="container cats-container">
-  <div class="row">
-    <div *ngFor="let item of arr" class="col-4 mb-3">
-      <div class="cat-item d-flex flex-column align-items-center">
+<div class="container cats-container" *ngIf="!!roomCats && !!roomId">
+  <div class="row" *ngIf="type === 1">
+    <div *ngFor="let item of roomCats.category" class="col-4 mb-3">
+      <div (click)="switchType(item)" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">
         <img src="assets/images/cat_item.png"/>
-        <p>Категория 1</p>
-        <p>Краткое описание</p>
+        <p>{{item.name}}</p>
+        <p>{{item.description}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="type === 2">
+    <div *ngFor="let item of selectedCat.services" class="col-4 mb-3">
+      <div (click)="registerTicket(item.id)" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">
+        <img src="assets/images/cat_item.png"/>
+        <p>{{item.name}}</p>
+        <p>{{item.description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container cats-container" *ngIf="!roomId">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+        <span class="error-label">Выберите комнату для терминала!</span>
       </div>
     </div>
   </div>
