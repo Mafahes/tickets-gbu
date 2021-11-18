@@ -20,7 +20,6 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
     private router: Router,
     private arouter: ActivatedRoute
   ) { }
-  arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 1, 1, 1, 1, 1, 1, 1]
   async ngOnInit(): Promise<void> {
     this.interval = setInterval(() => this.currentDate = new Date(), 1000);
     this.arouter.paramMap.subscribe(async (i) => {
