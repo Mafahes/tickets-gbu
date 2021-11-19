@@ -69,6 +69,12 @@ export class ApiService {
     //   map(e => e.map(e2 => ({...e2, name: `${e2?.service?.letter || '-'}${e2.id}`})))
     // );
   }
+  getMonitorTickets(id): Observable<Queue[]> {
+    return this.http.get<Queue[]>(`${Api.API_LINK}api/tickets/monitor`)
+    //   .pipe(
+    //   map(e => e.map(e2 => ({...e2, name: `${e2?.service?.letter || '-'}${e2.id}`})))
+    // );
+  }
   getMyTickets(): Observable<Tickets[]> {
     return this.http.get<Tickets[]>(`${Api.API_LINK}api/tickets/my`);
   }

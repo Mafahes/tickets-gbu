@@ -24,7 +24,7 @@ import {NewUserComponent} from "./pages/admin/users/new-user/new-user.component"
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'monitor/list', component: TicketListComponent },
+  { path: 'monitor/:id/list', component: TicketListComponent },
   { path: 'monitor/safety', component: SafetyBordComponent },
   { path: 'terminal', component: TerminalCatListComponent },
   { path: 'terminal/cats/', component: TerminalCatListComponent },
@@ -45,6 +45,7 @@ const routes: Routes = [
   { path: 'admin/users', component: UsersComponent },
   { path: 'admin/users/new', component: NewUserComponent },
   { path: 'admin/users/:id', component: NewUserComponent },
+  { path: 'admin', redirectTo: 'admin/rooms'}
 
 ];
 
