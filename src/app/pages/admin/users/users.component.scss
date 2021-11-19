@@ -1,0 +1,12 @@
+.cardUser {
+  border: 1px solid black;
+}
+button {
+  ::ng-deep.mat-button-wrapper {
+    font-family: HumanistRegular, sans-serif !important;
+    font-size: 18px !important;
+  }
+  border-radius: 0 !important;
+  color: white;
+  background-color: black;
+}

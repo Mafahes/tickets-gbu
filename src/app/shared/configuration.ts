@@ -50,6 +50,7 @@ export class Routes {
     { path: 'admin/postpone', title: 'Причины отложения', icon: 'list_alt', line: false, access: [] },
     { path: 'admin/over', title: 'Причины завершения', icon: 'list_alt', line: false, access: [] },
     { path: 'admin/redirect', title: 'Причины перенаправления', icon: 'list_alt', line: false, access: [] },
-    { path: 'admin/rooms', title: 'Залы', icon: 'list_alt', line: false, access: [] }
+    { path: 'admin/rooms', title: 'Залы', icon: 'list_alt', line: false, access: [] },
+    { path: 'admin/users', title: 'Пользователи', icon: 'list_alt', line: false, access: [] }
   ];
 }

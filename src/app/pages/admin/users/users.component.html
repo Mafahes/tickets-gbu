@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row mb-3">
+    <div class="col-2">
+      <button routerLink="/admin/users/new" mat-raised-button>Создать</button>
+    </div>
+  </div>
+  <div class="row cardUser mb-2 p-2" *ngFor="let item of users; let i = index">
+    <div class="col-1 d-flex justify-content-center align-items-center">
+      <button (click)="deleteUser(item.nummer)" mat-raised-button>Удалить</button>
+    </div>
+    <div class="col-8 d-flex align-items-center">
+      <span>(ID: {{item?.nummer}}) {{item?.secondName || '-'}} {{item?.firstName || '-'}} {{item?.patronymic || '-'}}</span>
+    </div>
+  </div>
+</div>

@@ -14,8 +14,9 @@ export class AuthInterceptor implements HttpInterceptor {
     });
     return next.handle(cloned).pipe(
       catchError((err: HttpErrorResponse) => {
-        this.snackBar.open('Back-END ошибка ' + err.status, 'OK', {
-          duration: 1000
+        this.snackBar.open('Ошибка ' + err.status, 'OK', {
+          duration: 1000,
+          panelClass: ['snack-bar-card']
         });
         return throwError(err);
       })

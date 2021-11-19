@@ -18,6 +18,8 @@ import {NewAdminRoomsComponent} from "./pages/admin/admin-rooms/new-admin-rooms/
 import {NewReasonOverComponent} from "./pages/admin/reason-over/new-reason-over/new-reason-over.component";
 import {NewReasonPostponeComponent} from "./pages/admin/reason-postpone/new-reason-postpone/new-reason-postpone.component";
 import {NewReasonRedirectComponent} from "./pages/admin/reason-redirect/new-reason-redirect/new-reason-redirect.component";
+import {UsersComponent} from "./pages/admin/users/users.component";
+import {NewUserComponent} from "./pages/admin/users/new-user/new-user.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -40,7 +42,9 @@ const routes: Routes = [
   { path: 'admin/postpone/new', component: NewReasonPostponeComponent, pathMatch: 'full' },
   { path: 'admin/redirect', component: ReasonRedirectComponent },
   { path: 'admin/redirect/new', component: NewReasonRedirectComponent, pathMatch: 'full' },
-
+  { path: 'admin/users', component: UsersComponent },
+  { path: 'admin/users/new', component: NewUserComponent },
+  { path: 'admin/users/:id', component: NewUserComponent },
 
 ];
 

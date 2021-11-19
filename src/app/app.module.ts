@@ -91,6 +91,8 @@ import { NewAdminRoomsComponent } from './pages/admin/admin-rooms/new-admin-room
 import { NewReasonOverComponent } from './pages/admin/reason-over/new-reason-over/new-reason-over.component';
 import { NewReasonPostponeComponent } from './pages/admin/reason-postpone/new-reason-postpone/new-reason-postpone.component';
 import { NewReasonRedirectComponent } from './pages/admin/reason-redirect/new-reason-redirect/new-reason-redirect.component';
+import { UsersComponent } from './pages/admin/users/users.component';
+import { NewUserComponent } from './pages/admin/users/new-user/new-user.component';
 
 registerLocaleData(localeRu, 'ru');
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -140,7 +142,9 @@ export const MY_FORMATS = {
     NewAdminRoomsComponent,
     NewReasonOverComponent,
     NewReasonPostponeComponent,
-    NewReasonRedirectComponent
+    NewReasonRedirectComponent,
+    UsersComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserAnimationsModule,

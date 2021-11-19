@@ -11,6 +11,7 @@ import {Queue} from "./queue";
 import {Window} from "../interfaces/window";
 import {Tickets} from "../interfaces/myTickets";
 import {Reason} from "../interfaces/reason";
+import {User} from "../interfaces/User";
 
 
 @Injectable({
@@ -97,5 +98,14 @@ export class ApiService {
   }
   redirectTicket(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/tickets/redirect`, data);
+  }
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${Api.API_LINK}api/users/all`);
+  }
+  updateUser(data): Observable<any> {
+    return this.http.put<any>(`${Api.API_LINK}api/users/edit`, data);
+  }
+  deleteUser(id): Observable<any> {
+    return this.http.delete<any>(`${Api.API_LINK}api/users?id=${id}`);
   }
 }
