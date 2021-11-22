@@ -8,14 +8,18 @@
       <mat-divider></mat-divider>
     </div>
   </div>
-  <div class="row mt-3">
-    <div class="col-12">
-      <p class="label center">Выбор подразделения</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12 px-5">
+  <div class="row mt-4">
+    <div class="col-5 px-5">
+      <div class="w-100 mb-3 d-flex justify-content-end align-items-end flex-row">
+        <div style="width: 40%" class="step-container d-flex justify-content-center align-items-center p-3">
+          <span class="label center">шаг 1</span>
+        </div>
+      </div>
+      <div class="label-container mb-3 d-flex justify-content-center align-items-center p-3">
+        <span class="label center">Выбор подразделения:</span>
+      </div>
       <mat-radio-group
+        (change)="subChange($event)"
         aria-labelledby="example-radio-group-label"
         class="d-flex flex-column"
         [(ngModel)]="selected">
@@ -24,8 +28,28 @@
         </mat-radio-button>
       </mat-radio-group>
     </div>
+    <div class="col-2"></div>
+    <div class="col-5 px-5">
+      <div class="w-100 mb-3 d-flex justify-content-end align-items-end flex-row">
+        <div style="width: 40%" class="step-container d-flex justify-content-center align-items-center p-3">
+          <span class="label center">шаг 2</span>
+        </div>
+      </div>
+      <div class="label-container mb-3 d-flex justify-content-center align-items-center p-3">
+        <span class="label center">Выбор окна:</span>
+      </div>
+      <span *ngIf="wins.length === 0">Окна пусты</span>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="d-flex flex-column"
+        [(ngModel)]="selectedWin">
+        <mat-radio-button class="my-2" color="primary" *ngFor="let option of wins" [value]="option.id">
+          <span class="radio-label ml-4">{{option.name}}</span>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
   </div>
   <div class="row h-100 px-4 d-flex flex-column justify-content-end align-items-end">
-      <button (click)="submit()" [disabled]="!selected" mat-raised-button>Далее</button>
+      <button (click)="submit()" [disabled]="!selected || !selectedWin" mat-raised-button>Далее</button>
   </div>
 </div>

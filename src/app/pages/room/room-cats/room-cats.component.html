@@ -37,7 +37,7 @@
     </div>
   </div>
   <div class="row d-flex justify-content-between align-items-end flex-row mx-3 h-100">
-    <button [routerLink]="'/room/list/' + roomId + '/windows'" mat-raised-button>Назад</button>
+    <button routerLink="/room/list" mat-raised-button>Назад</button>
     <button [disabled]="mainCat.length === 0" mat-raised-button (click)="startSession()">Начать сессию</button>
   </div>
 </div>

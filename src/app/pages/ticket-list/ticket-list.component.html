@@ -27,7 +27,7 @@
       <div
         [class.r-bt-right]="true"
         [class.r-top-right]="true"
-        [class.r-bt-left]="!(selectedItem + 1 === arr.length)"
+        [class.r-bt-left]="!(selectedItem + 1 === queue[selectedPage].length)"
         [class.r-top-left]="!(selectedItem === 0)"
         class="w-100 py-5 h-100 white-block d-flex flex-column justify-content-center align-items-center">
         <span>{{queue[selectedPage][selectedItem].name}}</span>

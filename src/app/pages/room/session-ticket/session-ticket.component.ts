@@ -94,7 +94,8 @@ export class SessionTicketComponent implements OnInit {
     await this.api.stopSession().toPromise();
     this.router.navigate(['/room/list']);
     this.snackBar.open('Сессия завершена!', null, {
-      duration: 1000
+      duration: 1000,
+      panelClass: ['snack-bar-card']
     })
   }
   async switchPause(): Promise<void> {
