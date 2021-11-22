@@ -20,14 +20,6 @@ export class TicketListComponent implements OnInit, OnDestroy {
     private socket: SignalRService
   ) { }
   interval: any;
-  arr: any[] = [
-    { name: 'Б12', window: '1' },
-    { name: 'Б13', window: '1' },
-    { name: 'А4', window: '1' },
-    { name: 'С15', window: '1' },
-    { name: 'B10', window: null },
-    { name: 'A5', window: null }
-  ];
   queue: Queue[][] = [];
   selectedItem: any;
   selectedPage = 0;
@@ -37,6 +29,10 @@ export class TicketListComponent implements OnInit, OnDestroy {
         await this.api.getQueue().pipe(
           map(i => i.filter(e2 => e2.roomId === parseInt(e.get('id'))))
         ).toPromise()), 5);
+      if(this.queue.length === 0) {
+        this.selectedItem = null;
+        this.selectedPage = 0;
+      }
     })
   }
   parseData(): void {

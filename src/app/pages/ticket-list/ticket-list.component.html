@@ -20,7 +20,7 @@
       <div *ngFor="let item of queue[selectedPage]; let i = index" (click)="select(i)" [class.active]="selectedItem === i" class="d-flex py-3 window-list justify-content-between flex-row">
         <p class="title half-40">{{item.name}}</p>
         <span class="arrow half-20">></span>
-        <p class="window half-40">2</p>
+        <p class="window half-40">{{item?.session?.windows?.letter || '-'}}</p>
       </div>
     </div>
     <div class="half" *ngIf="selectedItem === 0 ? true : !!selectedItem">
@@ -31,7 +31,8 @@
         [class.r-top-left]="!(selectedItem === 0)"
         class="w-100 py-5 h-100 white-block d-flex flex-column justify-content-center align-items-center">
         <span>{{queue[selectedPage][selectedItem].name}}</span>
-        <span>ОКНО {{queue[selectedPage][selectedItem].name}}</span>
+        <span *ngIf="!!queue[selectedPage][selectedItem]?.session">ОКНО {{queue[selectedPage][selectedItem]?.session?.windows?.letter || ''}}</span>
+        <span *ngIf="!queue[selectedPage][selectedItem]?.session">ОЖИДАЙТЕ</span>
       </div>
     </div>
   </div>
