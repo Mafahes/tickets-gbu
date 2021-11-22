@@ -58,6 +58,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
       audio.src = "assets/sound.mp3";
       audio.load();
       audio.play();
+      this.parseData();
     });
     this.socket.dataTransferSub('register').subscribe((e) => {
       this.parseData();
