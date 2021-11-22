@@ -20,6 +20,7 @@ import {NewReasonPostponeComponent} from "./pages/admin/reason-postpone/new-reas
 import {NewReasonRedirectComponent} from "./pages/admin/reason-redirect/new-reason-redirect/new-reason-redirect.component";
 import {UsersComponent} from "./pages/admin/users/users.component";
 import {NewUserComponent} from "./pages/admin/users/new-user/new-user.component";
+import {SessionStatsComponent} from "./pages/room/session-stats/session-stats.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'room/list/:id/windows', component: RoomWindowsComponent },
   { path: 'room/list/:id/windows/:wid/cats', component: RoomCatsComponent },
   { path: 'room/session/:id', component: SessionPageComponent },
+  { path: 'room/session/:id/stats', component: SessionStatsComponent },
   { path: 'room/session/:id/ticket/:tId', component: SessionTicketComponent },
   { path: 'admin/rooms', component: AdminRoomsComponent, pathMatch: 'full' },
   { path: 'admin/rooms/new', component: NewAdminRoomsComponent, pathMatch: 'full' },

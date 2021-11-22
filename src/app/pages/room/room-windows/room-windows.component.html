@@ -29,7 +29,8 @@
       </mat-radio-group>
     </div>
   </div>
-  <div class="row h-100 px-4 d-flex flex-column justify-content-end align-items-end">
+  <div class="row h-100 px-4 d-flex flex-row justify-content-between align-items-end">
+    <button routerLink="/room/list" mat-raised-button>Назад</button>
     <button (click)="submit()" [disabled]="!selected" mat-raised-button>Далее</button>
   </div>
 </div>

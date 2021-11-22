@@ -48,6 +48,7 @@ export class SessionTicketComponent implements OnInit {
     return result;
   }
   async parseData(): Promise<void> {
+    await this.app.getSessions();
     this.queue = await this.api.getQueue().toPromise();
     let t = await this.api.getMyTickets().toPromise();
     this.myTicket = t.find((e) => e.id === parseInt(this.ticketId));

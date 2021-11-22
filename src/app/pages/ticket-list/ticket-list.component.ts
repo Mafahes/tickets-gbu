@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from "../../shared/services/api.service";
 import {Queue} from "../../shared/services/queue";
 import * as _ from 'lodash';
+import {SignalRService} from "../../shared/services/signal-r.service";
+import {forkJoin} from "rxjs";
 @Component({
   selector: 'app-ticket-list',
   templateUrl: './ticket-list.component.html',
@@ -13,7 +15,8 @@ export class TicketListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private api: ApiService,
-    private arouter: ActivatedRoute
+    private arouter: ActivatedRoute,
+    private socket: SignalRService
   ) { }
   interval: any;
   arr: any[] = [
@@ -33,7 +36,10 @@ export class TicketListComponent implements OnInit, OnDestroy {
     })
     console.log(this.queue);
   }
-  ngOnInit(): void {
+  parseData(): void {
+    if(!!this.interval) {
+      clearInterval(this.interval);
+    }
     this.getQueue();
     // setTimeout(() => this.router.navigate(['/safety']), 14000);
     this.interval = setInterval(() => {
@@ -44,6 +50,15 @@ export class TicketListComponent implements OnInit, OnDestroy {
       }
       this.selectedItem = this.selectedItem === undefined ? 0 : this.selectedItem + 1 === this.queue[this.selectedPage].length ? 0 : this.selectedItem + 1;
     }, 2000);
+  }
+  ngOnInit(): void {
+    this.parseData();
+    this.socket.dataTransferSub('register').subscribe((e) => {
+      this.parseData();
+    });
+    this.socket.dataTransferSub('over').subscribe((e) => {
+      this.parseData();
+    });
   }
   ngOnDestroy(): void {
     clearInterval(this.interval);

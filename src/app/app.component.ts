@@ -23,6 +23,7 @@ export class AppComponent implements OnInit{
               private router: Router) {}
   route = '';
   sessions: Session[] = [];
+  sessionsInitialized = false;
   get isTerminal(): any {
     return this.route.includes('monitor') || this.route.includes('terminal');
   }
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit{
   }
   async getSessions(): Promise<Session[]> {
     this.sessions = await this.api.getSession().toPromise();
+    this.sessionsInitialized = true;
     return this.sessions;
   }
   switchApi(type: boolean): void {
@@ -77,16 +79,13 @@ export class AppComponent implements OnInit{
   }
   async parseUser(): Promise<void> {
     if (!!localStorage.getItem('api_token')) {
-      // this.user = await this.api.getSelf().toPromise();
-      this.initialized = true;
-      // this.signalR.startConnection().then(i => {
-      //   this.initialized = true;
-      // });
+      this.signalR.startConnection().then(i => {
+        this.initialized = true;
+      });
     } else {
-      this.initialized = true;
-      // this.signalR.startConnection().then(i => {
-      //   this.initialized = true;
-      // });
+      this.signalR.startConnection().then(i => {
+        this.initialized = true;
+      });
     }
   }
   exit(): void {
@@ -95,12 +94,14 @@ export class AppComponent implements OnInit{
   }
   async checkAuth(route = '/'): Promise<void> {
     if (localStorage.getItem('api_token') === null) {
-      this.router.navigate(['/login']);
+      if(!route.includes('terminal') && !route.includes('monitor')) {
+        this.router.navigate(['/login']);
+      }
     } else {
-      var a = await this.api.getSession().toPromise();
+      await this.getSessions();
       if(route === '/') {
-        if(a.length > 0) {
-          this.router.navigate(['room/session/' + a[0].id]);
+        if(this.sessions.length > 0) {
+          this.router.navigate(['room/session/' + this.sessions[0].id]);
         } else {
           this.router.navigate([route]);
         }

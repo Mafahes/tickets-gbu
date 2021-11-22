@@ -7,6 +7,7 @@ import {Queue} from "../../../shared/services/queue";
 import {queue} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {AppComponent} from "../../../app.component";
+import {SignalRService} from "../../../shared/services/signal-r.service";
 
 @Component({
   selector: 'app-session-page',
@@ -26,7 +27,8 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     public api: ApiService,
     private app: AppComponent,
     private dialog: MatDialog,
-    private arouter: ActivatedRoute
+    private arouter: ActivatedRoute,
+    private socket: SignalRService
   ) { }
   get timeSeconds(): any {
     let date = new Date(null);
@@ -35,6 +37,7 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     return result;
   }
   async parseData(): Promise<void> {
+    await this.app.getSessions();
     let a = this.app.sessions;
     this.queue = await this.api.getQueue().toPromise();
     if(this.queue.length > 0) {
@@ -68,6 +71,9 @@ export class SessionPageComponent implements OnInit, OnDestroy {
       await this.app.getSessions();
     }
     this.parseData();
+    this.socket.dataTransferSub('register').subscribe((e) => {
+      this.parseData();
+    })
   }
   async stopSession(): Promise<void> {
     await this.api.stopSession().toPromise();
@@ -89,10 +95,12 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     console.log(!!this.session.pause);
     if(this.session.pause === null || this.session.pause.length === 0) {
       await this.api.pauseSession().toPromise();
-      this.parseData();
+      await this.parseData();
+      this.session = this.app.sessions[0];
     } else {
       await this.api.unpauseSession().toPromise();
-      this.parseData();
+      await this.parseData();
+      this.session = this.app.sessions[0];
     }
   }
   async getTicket(): Promise<void> {

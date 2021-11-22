@@ -1,0 +1,98 @@
+.label {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  font-family: HumanistRegular, sans-serif;
+}
+.title {
+  color: #787878;
+}
+.border-2 {
+  border: 2px solid black;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.border-bottom-1 {
+  border-bottom: 1px solid black;
+}
+.border-right-2 {
+  border-right: 2px solid black;
+}
+button {
+  border-radius: 0;
+  color: white;
+  background-color: black;
+  padding: 5px 20px;
+  ::ng-deep span {
+    font-family: HumanistRegular, sans-serif;
+    font-size: 24px;
+  }
+}
+p, span {
+  font-family: HumanistRegular, sans-serif;
+  line-height: 1em !important;
+}
+.ticket-card {
+  p:nth-child(1) {
+    font-size: 18px !important;
+  }
+  p:nth-child(2) {
+    font-size: 96px !important;
+  }
+  p:nth-child(3) {
+    font-size: 24px !important;
+  }
+}
+.table {
+  max-height: 215px;
+  overflow: auto;
+  border: 2px solid black;
+  .element {
+    -webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+    border-bottom: 1px solid black;
+  }
+  .element:last-child {
+    border: 0 !important;
+  }
+  .element:hover {
+    span {
+      color: white;
+    }
+    -webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+    background-color: black;
+  }
+}
+::ng-deep mat-dialog-container {
+  span {
+    font-size: 24px;
+  }
+  .label2 {
+    font-size: 36px;
+    text-align: center;
+  }
+  height: 420px !important;
+  width: 530px !important;
+  .closeButton {
+    padding: 0 !important;
+    ::ng-deep span {
+      font-size: 14px !important;
+    }
+  }
+}
+.submitButton {
+  height: 100px !important;
+}
+.input__numDialogue {
+  border: 0;
+  font-size: 80px;
+  border-bottom: 1px solid black;
+}
+.active {
+  background-color: lightgray;
+  -webkit-transition: background-color 400ms linear;
+  -ms-transition: background-color 400ms linear;
+  transition: background-color 400ms linear;
+}

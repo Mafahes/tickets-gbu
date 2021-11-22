@@ -8,7 +8,7 @@ export class SignalRService {
   private hubConnection: signalR.HubConnection;
   startConnection = async () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://nomenclature.3dcafe.ru/notificationHub')
+      .withUrl('https://electronicqueue.3dcafe.ru/workspace')
       .build();
     return this.hubConnection
       .start();

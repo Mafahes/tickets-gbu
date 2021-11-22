@@ -12,6 +12,7 @@ import {Window} from "../interfaces/window";
 import {Tickets} from "../interfaces/myTickets";
 import {Reason} from "../interfaces/reason";
 import {User} from "../interfaces/User";
+import {StatObject} from "../interfaces/stats";
 
 
 @Injectable({
@@ -34,6 +35,9 @@ export class ApiService {
   }
   getRooms(): Observable<RoomObject> {
     return this.http.get<RoomObject>(`${Api.API_LINK}api/rooms`);
+  }
+  getStats(): Observable<StatObject> {
+    return this.http.get<StatObject>(`${Api.API_LINK}api/sessions/stats`);
   }
   createRoom(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/rooms`, data);

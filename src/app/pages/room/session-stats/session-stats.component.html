@@ -1,0 +1,68 @@
+<div *ngIf="!!stats" class="container-fluid d-flex flex-column py-3" style="height: 100vh">
+  <div class="row">
+    <div class="col-4 d-flex justify-content-start flex-row align-items-center">
+      <div [routerLink]="'/room/session/' + sessionId" class="d-flex hover-pointer flex-row" style="gap: 20px">
+        <img src="assets/images/arrow.png"/>
+        <p class="label">Назад</p>
+      </div>
+    </div>
+    <div class="col-4 d-flex justify-content-center align-items-center">
+      <p class="label title">Пульт оператора</p>
+    </div>
+    <div class="col-4"></div>
+  </div>
+  <div class="row my-3">
+    <div class="col-12">
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div class="row mx-1 mb-5 border-2">
+    <div class="col-12 border-bottom-1 d-flex">
+      <div class="w-100 p-2 px-3">
+        <span class="label">Время сессии: {{timesession}}</span>
+      </div>
+    </div>
+    <div class="col-12 border-bottom-1 d-flex">
+      <div class="w-50 border-right-2 p-2 px-3">
+        <span class="label">Количество обслуженных клиентов:</span>
+      </div>
+      <div class="w-50 p-2 px-3">
+        <span class="label">{{stats.countclients}}</span>
+      </div>
+    </div>
+    <div class="col-12 d-flex">
+      <div class="w-50 border-right-2 p-2 px-3">
+        <span class="label">Количество перенаправленных клиентов:</span>
+      </div>
+      <div class="w-50 p-2 px-3">
+        <span class="label">{{stats.countclientsredirect}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-1 border-2">
+    <div class="col-12 border-bottom-1 d-flex">
+      <div class="w-50 border-right-2 p-2 px-3">
+        <span class="label">Время перерыва:</span>
+      </div>
+      <div class="w-50 p-2 px-3">
+        <span class="label">{{timewait}}</span>
+      </div>
+    </div>
+    <div class="col-12 border-bottom-1 d-flex">
+      <div class="w-50 border-right-2 p-2 px-3">
+        <span class="label">Время последнего обслуживания:</span>
+      </div>
+      <div class="w-50 p-2 px-3">
+        <span class="label">{{timelastticket}}</span>
+      </div>
+    </div>
+    <div class="col-12 d-flex">
+      <div class="w-50 border-right-2 p-2 px-3">
+        <span class="label">Среднее время обслуживания:</span>
+      </div>
+      <div class="w-50 p-2 px-3">
+        <span class="label">{{timeavgticket}}</span>
+      </div>
+    </div>
+  </div>
+</div>

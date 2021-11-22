@@ -13,7 +13,7 @@
       <button class="w-100" (click)="stopSession()" mat-raised-button>Завершить сессию</button>
     </div>
     <div class="col-2 d-flex flex-row justify-content-between">
-      <button class="w-100" mat-raised-button>Статистика</button>
+      <button class="w-100" [routerLink]="'/room/session/' + sessionId + '/stats'" mat-raised-button>Статистика</button>
     </div>
   </div>
   <div class="row my-3">

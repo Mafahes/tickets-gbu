@@ -93,6 +93,7 @@ import { NewReasonPostponeComponent } from './pages/admin/reason-postpone/new-re
 import { NewReasonRedirectComponent } from './pages/admin/reason-redirect/new-reason-redirect/new-reason-redirect.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { NewUserComponent } from './pages/admin/users/new-user/new-user.component';
+import { SessionStatsComponent } from './pages/room/session-stats/session-stats.component';
 
 registerLocaleData(localeRu, 'ru');
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -144,7 +145,8 @@ export const MY_FORMATS = {
     NewReasonPostponeComponent,
     NewReasonRedirectComponent,
     UsersComponent,
-    NewUserComponent
+    NewUserComponent,
+    SessionStatsComponent
   ],
   imports: [
     BrowserAnimationsModule,

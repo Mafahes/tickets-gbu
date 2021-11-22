@@ -7,10 +7,10 @@
       <p class="label">Время сессии: {{timeSeconds}}</p>
     </div>
     <div class="col-2 d-flex flex-row justify-content-between">
-      <button class="w-100"  mat-raised-button>Пауза</button>
+      <button class="w-100" (click)="switchPause()"  mat-raised-button>{{app.sessions[0].pause.length > 0 ? 'Продолжить' : 'Пауза'}}</button>
     </div>
     <div class="col-2 d-flex flex-row justify-content-between">
-      <button class="w-100" mat-raised-button>Завершить сессию</button>
+      <button class="w-100" (click)="stopSession()" mat-raised-button>Завершить сессию</button>
     </div>
     <div class="col-2 d-flex flex-row justify-content-between">
       <button class="w-100" mat-raised-button (click)="app.exit()">Выход</button>
@@ -38,9 +38,9 @@
   </div>
   <div class="row mt-5">
     <div class="col-12 d-flex flex-row justify-content-center align-items-center" style="gap: 40px">
-      <button class="p-3 px-5" (click)="sendDialog(3)" mat-raised-button>Отложить</button>
-      <button class="p-3 px-5" (click)="sendDialog(2)" mat-raised-button>Перенаправить</button>
-      <button class="p-3 px-5" (click)="sendDialog(1)" mat-raised-button>Завершить прием</button>
+      <button class="p-3 px-5" [disabled]="app.sessions[0].pause.length > 0" (click)="sendDialog(3)" mat-raised-button>Отложить</button>
+      <button class="p-3 px-5" [disabled]="app.sessions[0].pause.length > 0" (click)="sendDialog(2)" mat-raised-button>Перенаправить</button>
+      <button class="p-3 px-5" [disabled]="app.sessions[0].pause.length > 0" (click)="sendDialog(1)" mat-raised-button>Завершить прием</button>
     </div>
   </div>
   <div class="row my-5">
@@ -50,15 +50,18 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-12 mb-4">
+    <div *ngIf="queue.length > 0" class="col-12 mb-4">
       <span class="label ml-4">Очередь</span>
     </div>
-    <div class="col-7">
+    <div class="col-7" *ngIf="queue.length > 0">
       <div class="table w-100">
-        <div class="py-3 hover-pointer element pl-4">
-          <span>test</span>
+        <div *ngFor="let item of queue; let i = index" [class.active]="activeTicket === i" class="py-3 hover-pointer element pl-4">
+          <span>{{item?.name || '-'}}</span>
         </div>
       </div>
+    </div>
+    <div class="col-7" *ngIf="queue.length === 0">
+      <span class="label ml-4">Очередь пуста</span>
     </div>
   </div>
 </div>
