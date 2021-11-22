@@ -87,6 +87,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: white !important;
   }
 }
+.snack-bar-white-card {
+  background: white !important;
+  border-radius: 0 !important;
+  span {
+    font-family: HumanistRegular, sans-serif !important;
+    color: black !important;
+  }
+}
 .input-theme {
   padding: .6875rem 1rem;
   border: 1px solid #e4e9f2;

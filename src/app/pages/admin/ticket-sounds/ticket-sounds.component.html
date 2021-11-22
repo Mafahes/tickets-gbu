@@ -1,0 +1,22 @@
+<div class="container-fluid" *ngIf="!!sounds">
+  <div class="row">
+    <div *ngFor="let item of sounds" class="col-2">
+      <div class="card__rooms d-flex flex-column h-100 justify-content-center align-items-center" style="gap: 20px">
+        <span>{{item?.name}}</span>
+        <mat-icon (click)="delSound(item.id)" class="hover-pointer" style="position: absolute; top: 10px; right: 25px">close</mat-icon>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="card__rooms d-flex flex-column h-100 justify-content-center align-items-center" style="gap: 10px; position: relative">
+        <div *ngIf="loading" class="d-flex loading justify-content-center align-items-center">
+          <span>Загрузка...</span>
+        </div>
+        <form [formGroup]="form">
+          <input class="input mb-2 w-100" formControlName="name" placeholder="Название" [(ngModel)]="name"/>
+          <input class="w-100" formControlName="file" (change)="onFileSelect($event)" type="file"/>
+        </form>
+        <button mat-raised-button (click)="submit()">Создать</button>
+      </div>
+    </div>
+  </div>
+</div>

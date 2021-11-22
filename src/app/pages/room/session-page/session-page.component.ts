@@ -1,13 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ApiService} from "../../../shared/services/api.service";
 import {Session} from "../../../shared/interfaces/self";
 import {Queue} from "../../../shared/services/queue";
 import {queue} from "rxjs";
-import {MatDialog} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {AppComponent} from "../../../app.component";
 import {SignalRService} from "../../../shared/services/signal-r.service";
+import {map} from "rxjs/operators";
+import {TicketEndComponent} from "../session-ticket/session-ticket.component";
 
 @Component({
   selector: 'app-session-page',
@@ -36,10 +38,40 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     let result = date.toISOString().substr(11, 8);
     return result;
   }
+  async sendDialog(type = 1): Promise<void> {
+    const dialogRef = this.dialog.open(TicketEndComponent, {
+      data: type
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if(!result) {
+        return;
+      }
+      switch (type) {
+        case 1: {
+          await this.api.overTicket({...result, overId: result.id, ticketId: this.queue[this.activeTicket].id}).toPromise();
+          this.parseData();
+          break;
+        }
+        case 2: {
+          await this.api.redirectTicket({...result, redirectId: result.id, ticketId: this.queue[this.activeTicket].id}).toPromise();
+          this.parseData();
+          break;
+        }
+        case 3: {
+          await this.api.postponeTicket({...result, postponeId: result.id, ticketId: this.queue[this.activeTicket].id}).toPromise();
+          this.parseData();
+          break;
+        }
+      }
+    });
+  }
   async parseData(): Promise<void> {
     await this.app.getSessions();
     let a = this.app.sessions;
-    this.queue = await this.api.getQueue().toPromise();
+    this.queue = await this.api.getQueue().pipe(
+      map(i => i.filter(i2 => i2.roomId === this.app.sessions[0].roomId))
+    ).toPromise();
     if(this.queue.length > 0) {
       this.activeTicket = 0;
     }
@@ -73,6 +105,12 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     this.parseData();
     this.socket.dataTransferSub('register').subscribe((e) => {
       this.parseData();
+    })
+    this.socket.dataTransferSub('Help').subscribe((e) => {
+      console.log(e);
+      const dialogRef = this.dialog.open(SessionPageDialogComponent, {
+        data: e.user
+      });
     })
   }
   async stopSession(): Promise<void> {
@@ -115,7 +153,9 @@ export class SessionPageComponent implements OnInit, OnDestroy {
   styleUrls: ['./session-page.component.scss']
 })
 export class SessionPageDialogComponent {
-  constructor() {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
   }
   text = '';
 }

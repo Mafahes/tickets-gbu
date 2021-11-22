@@ -1,0 +1,48 @@
+.card__rooms {
+  border: 1px solid black;
+  padding: 10px;
+  span {
+    text-align: center;
+  }
+}
+.noborder {
+  border: 0 !important;
+}
+.card__rooms span:nth-child(1) {
+  font-size: 30px;
+  font-family: HumanistRegular, sans-serif;
+  color: black;
+}
+button {
+  ::ng-deep.mat-button-wrapper {
+    font-family: HumanistRegular, sans-serif !important;
+    font-size: 16px !important;
+  }
+  border-radius: 0 !important;
+  color: white;
+  background-color: black;
+}
+.card__rooms span:nth-child(2) {
+  font-size: 24px !important;
+  font-family: HumanistRegular, sans-serif;
+  color: #787878;
+}
+.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: #000000a6;
+  span {
+    color: white !important;
+  }
+}
+p, span {
+  font-family: HumanistRegular, sans-serif;
+  line-height: 1em !important;
+}
+.input {
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 10px;
+}

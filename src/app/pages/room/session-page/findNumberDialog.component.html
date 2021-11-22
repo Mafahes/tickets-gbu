@@ -1,5 +1,12 @@
 <mat-dialog-content class="mat-typography">
- <div class="container-fluid">
+  <div class="container-fluid" style="overflow: hidden" *ngIf="data !== null">
+    <div class="row">
+      <div class="col-10 d-flex flex-column justify-content-center">
+        <span class="label">У терминала в помещении {{data}} нужна помощь</span>
+      </div>
+    </div>
+  </div>
+ <div class="container-fluid" *ngIf="data === null">
    <div class="row">
      <div class="col-10 d-flex flex-column justify-content-center">
        <span class="label">Вызов по номеру</span>

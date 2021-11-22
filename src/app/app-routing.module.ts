@@ -21,6 +21,7 @@ import {NewReasonRedirectComponent} from "./pages/admin/reason-redirect/new-reas
 import {UsersComponent} from "./pages/admin/users/users.component";
 import {NewUserComponent} from "./pages/admin/users/new-user/new-user.component";
 import {SessionStatsComponent} from "./pages/room/session-stats/session-stats.component";
+import {TicketSoundsComponent} from "./pages/admin/ticket-sounds/ticket-sounds.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'room/session/:id/stats', component: SessionStatsComponent },
   { path: 'room/session/:id/ticket/:tId', component: SessionTicketComponent },
   { path: 'admin/rooms', component: AdminRoomsComponent, pathMatch: 'full' },
+  { path: 'admin/sounds', component: TicketSoundsComponent, pathMatch: 'full' },
   { path: 'admin/rooms/new', component: NewAdminRoomsComponent, pathMatch: 'full' },
   { path: 'admin/over', component: ReasonOverComponent },
   { path: 'admin/over/new', component: NewReasonOverComponent, pathMatch: 'full' },

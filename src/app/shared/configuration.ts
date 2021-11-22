@@ -51,6 +51,8 @@ export class Routes {
     { path: 'admin/over', title: 'Причины завершения', icon: 'list_alt', line: false, access: [] },
     { path: 'admin/redirect', title: 'Причины перенаправления', icon: 'list_alt', line: false, access: [] },
     { path: 'admin/rooms', title: 'Залы', icon: 'list_alt', line: false, access: [] },
-    { path: 'admin/users', title: 'Пользователи', icon: 'list_alt', line: false, access: [] }
+    { path: 'admin/users', title: 'Пользователи', icon: 'list_alt', line: false, access: [] },
+    { path: 'admin/sounds', title: 'Озвучка', icon: 'list_alt', line: false, access: [] }
+
   ];
 }

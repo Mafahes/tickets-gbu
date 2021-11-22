@@ -11,6 +11,7 @@ export interface Service {
 
 export interface Queue {
   id: number;
+  roomId: number;
   serviceId: number;
   service: Service;
   name: string;

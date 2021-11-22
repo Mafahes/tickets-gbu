@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ApiService} from "../../../shared/services/api.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Category, RoomData} from "../../../shared/interfaces/room";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {SignalRService} from "../../../shared/services/signal-r.service";
 
 @Component({
   selector: 'app-terminal-cat-list',
@@ -18,6 +20,8 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
   constructor(
     private api: ApiService,
     private router: Router,
+    private socket: SignalRService,
+    private snackBar: MatSnackBar,
     private arouter: ActivatedRoute
   ) { }
   async ngOnInit(): Promise<void> {
@@ -35,10 +39,17 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
     this.selectedCat = cat;
     this.type = 2;
   }
+  getHelp() {
+    this.socket.invokeMethod('Help', this.roomId);
+  }
   async registerTicket(id): Promise<void> {
     await this.api.registerTicket(id).toPromise();
     this.type = 1;
     this.selectedCat = null;
+    this.snackBar.open('Услуга заказана', null, {
+      duration: 2000,
+      panelClass: ['snack-bar-white-card']
+    })
   }
 }
 

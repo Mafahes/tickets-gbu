@@ -36,10 +36,10 @@
       <button (click)="getTicket()" [disabled]="session.pause.length > 0 || activeTicket === null" class="w-100" mat-raised-button>Начать<br/>обслуживание</button>
     </div>
     <div class="col-2 d-flex flex-row justify-content-between align-items-center">
-      <button class="w-100" [disabled]="session.pause.length > 0 || activeTicket === null" mat-raised-button>Отложить</button>
+      <button class="w-100" (click)="sendDialog(3)" [disabled]="session.pause.length > 0 || activeTicket === null" mat-raised-button>Отложить</button>
     </div>
     <div class="col-2 d-flex flex-row justify-content-between align-items-center">
-      <button class="w-100" [disabled]="session.pause.length > 0 || activeTicket === null" mat-raised-button>Перенаправить</button>
+      <button class="w-100" (click)="sendDialog(2)" [disabled]="session.pause.length > 0 || activeTicket === null" mat-raised-button>Перенаправить</button>
     </div>
   </div>
   <div class="row mt-4 mb-2">

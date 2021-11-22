@@ -5,7 +5,7 @@ import {ToolsService} from './tools.service';
 import {Api, Status} from '../configuration';
 import {map} from 'rxjs/operators';
 import {Session} from "../interfaces/self";
-import {RoomObject} from "../interfaces/room";
+import {File2, RoomObject} from "../interfaces/room";
 import {Cat} from "../interfaces/Cat";
 import {Queue} from "./queue";
 import {Window} from "../interfaces/window";
@@ -13,6 +13,7 @@ import {Tickets} from "../interfaces/myTickets";
 import {Reason} from "../interfaces/reason";
 import {User} from "../interfaces/User";
 import {StatObject} from "../interfaces/stats";
+import {SoundObject} from "../interfaces/Sound";
 
 
 @Injectable({
@@ -87,6 +88,21 @@ export class ApiService {
   }
   getPostpones(): Observable<Reason[]> {
     return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonpostpone`);
+  }
+  uploadFile(data): Observable<File2[]> {
+    return this.http.post<File2[]>(`${Api.API_LINK}api/appfiles`, data);
+  }
+  getSounds(): Observable<SoundObject[]> {
+    return this.http.get<SoundObject[]>(`${Api.API_LINK}api/sounds`);
+  }
+  getSoundById(id): Observable<Reason[]> {
+    return this.http.get<Reason[]>(`${Api.API_LINK}api/sounds`);
+  }
+  createSound(data) {
+    return this.http.post(`${Api.API_LINK}api/sounds`, data);
+  }
+  deleteSound(id) {
+    return this.http.delete(`${Api.API_LINK}api/sounds/${id}`);
   }
   getReasonRedirects(): Observable<Reason[]> {
     return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonredirect`);

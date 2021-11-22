@@ -20,6 +20,13 @@ export class SignalRService {
       throwError('Сокеты не подключены');
     }
   }
+  invokeMethod = async (event, args) => {
+    if (await this.hubConnection.state === 'Connected') {
+      return this.hubConnection.invoke(event, args);
+    } else {
+      throwError('Сокеты не подключены');
+    }
+  }
   dataTransferSub(method): Observable<any> {
     return new Observable((obs) => {
       if (this.hubConnection.state === 'Connected') {

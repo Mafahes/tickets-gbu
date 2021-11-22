@@ -94,6 +94,7 @@ import { NewReasonRedirectComponent } from './pages/admin/reason-redirect/new-re
 import { UsersComponent } from './pages/admin/users/users.component';
 import { NewUserComponent } from './pages/admin/users/new-user/new-user.component';
 import { SessionStatsComponent } from './pages/room/session-stats/session-stats.component';
+import { TicketSoundsComponent } from './pages/admin/ticket-sounds/ticket-sounds.component';
 
 registerLocaleData(localeRu, 'ru');
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -146,7 +147,8 @@ export const MY_FORMATS = {
     NewReasonRedirectComponent,
     UsersComponent,
     NewUserComponent,
-    SessionStatsComponent
+    SessionStatsComponent,
+    TicketSoundsComponent
   ],
   imports: [
     BrowserAnimationsModule,

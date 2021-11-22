@@ -7,6 +7,7 @@ import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {Tickets} from "../../../shared/interfaces/myTickets";
 import {Reason} from "../../../shared/interfaces/reason";
 import {AppComponent} from "../../../app.component";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-session-ticket',
@@ -49,7 +50,9 @@ export class SessionTicketComponent implements OnInit {
   }
   async parseData(): Promise<void> {
     await this.app.getSessions();
-    this.queue = await this.api.getQueue().toPromise();
+    this.queue = await this.api.getQueue().pipe(
+      map(i => i.filter(i2 => i2.roomId === this.app.sessions[0].roomId))
+    ).toPromise();
     let t = await this.api.getMyTickets().toPromise();
     this.myTicket = t.find((e) => e.id === parseInt(this.ticketId));
     if(this.app.sessions[0].id !== parseInt(this.sessionId) || !this.myTicket) {

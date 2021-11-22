@@ -5,6 +5,7 @@ import {Queue} from "../../shared/services/queue";
 import * as _ from 'lodash';
 import {SignalRService} from "../../shared/services/signal-r.service";
 import {forkJoin} from "rxjs";
+import {map} from "rxjs/operators";
 @Component({
   selector: 'app-ticket-list',
   templateUrl: './ticket-list.component.html',
@@ -32,9 +33,11 @@ export class TicketListComponent implements OnInit, OnDestroy {
   selectedPage = 0;
   async getQueue(): Promise<void> {
     this.arouter.paramMap.subscribe(async (e) => {
-      this.queue = _.chunk((await this.api.getMonitorTickets(parseInt(e.get('id'))).toPromise()), 5);
+      this.queue = _.chunk((
+        await this.api.getQueue().pipe(
+          map(i => i.filter(e2 => e2.roomId === parseInt(e.get('id'))))
+        ).toPromise()), 5);
     })
-    console.log(this.queue);
   }
   parseData(): void {
     if(!!this.interval) {
@@ -53,6 +56,13 @@ export class TicketListComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.parseData();
+    this.socket.dataTransferSub('work').subscribe((e) => {
+      console.log(e);
+      let audio = new Audio();
+      audio.src = "assets/sound.mp3";
+      audio.load();
+      audio.play();
+    });
     this.socket.dataTransferSub('register').subscribe((e) => {
       this.parseData();
     });
