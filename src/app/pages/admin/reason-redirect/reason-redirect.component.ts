@@ -17,5 +17,8 @@ export class ReasonRedirectComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.reasons = await this.api.getReasonRedirects().toPromise();
   }
-
+  async delete(id): Promise<void> {
+    await this.api.delReasonRedirects(id).toPromise();
+    this.reasons = await this.api.getReasonRedirects().toPromise();
+  }
 }

@@ -19,8 +19,10 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
   selectedCat: Category;
   currentDate = new Date();
   completed = false;
+  loading = false;
   countDown = 5;
   ticket: any;
+  selectedTicket = 0;
   constructor(
     private api: ApiService,
     private router: Router,
@@ -49,12 +51,20 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
     this.socket.invokeMethod('Help', this.roomId);
   }
   async registerTicket(id): Promise<void> {
+    if(this.loading) return;
+    this.selectedTicket = id;
+    this.loading = true;
+    await new Promise((res, rej) => setTimeout(() => res(true), 2000));
     this.ticket = await this.api.registerTicket(id).toPromise();
+    this.selectedTicket = 0;
     this.completed = true;
-    timer(0, 1000).subscribe(() => --this.countDown)
+    this.loading = false;
+    var sub = timer(0, 1000).subscribe(() => --this.countDown)
     setTimeout(() => {
       this.completed = false;
+      this.countDown = 5;
       this.ticket = null;
+      sub.unsubscribe();
     }, 5000)
     // this.type = 1;
     // this.selectedCat = null;

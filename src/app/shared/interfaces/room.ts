@@ -1,3 +1,5 @@
+import {Window} from "./window";
+
 export interface File {
   id: number;
   fileName: string;
@@ -54,6 +56,7 @@ export interface RoomData {
   file: File;
   dateAdd: Date;
   category: Category[];
+  windows: Window[];
 }
 
 export interface RoomObject {

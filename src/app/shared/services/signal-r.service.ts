@@ -13,6 +13,7 @@ export class SignalRService {
     return this.hubConnection
       .start();
   }
+  state = () => this.hubConnection?.state ?? null;
   invoke = async () => {
     if (await this.hubConnection.state === 'Connected') {
       return this.hubConnection.invoke('SendMessage', 'test');

@@ -23,7 +23,7 @@
         <p class="window half-40">{{item?.session?.windows?.letter || '-'}}</p>
       </div>
     </div>
-    <div class="half" *ngIf="selectedItem === 0 ? true : !!selectedItem">
+    <div class="half" *ngIf="queue.length > 0 && selectedItem === 0 ? true : !!selectedItem">
       <div
         [class.r-bt-right]="true"
         [class.r-top-right]="true"

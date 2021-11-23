@@ -18,5 +18,9 @@ export class ReasonOverComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.reasons = await this.api.getReasons().toPromise();
   }
+  async delete(id): Promise<void> {
+    await this.api.delReason(id).toPromise();
+    this.reasons = await this.api.getReasons().toPromise();
+  }
 
 }

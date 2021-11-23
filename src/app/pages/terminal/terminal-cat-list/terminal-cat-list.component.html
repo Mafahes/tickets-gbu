@@ -8,7 +8,7 @@
       <p>Пожалуйста, выберите<br>{{type === 1 ? 'категорию услуги' : 'услугу'}}</p>
     </div>
     <div *ngIf="!completed" class="col-2 justify-content-center align-items-center d-flex flex-column">
-      <input class="search-panel w-100" placeholder="Поиск..."/>
+<!--      <input class="search-panel w-100" placeholder="Поиск..."/>-->
     </div>
     <div *ngIf="!completed" (click)="getHelp()" class="col-1 help-icon justify-content-center align-items-center d-flex flex-column">
       <img src="assets/images/info_icon.png"/>
@@ -36,7 +36,7 @@
   </div>
   <div class="row" *ngIf="type === 2">
     <div *ngFor="let item of selectedCat.services" class="col-4 mb-3">
-      <div (click)="registerTicket(item.id)" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">
+      <div (click)="registerTicket(item.id)" [class.active-block]="selectedTicket === item.id" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">
         <img src="assets/images/cat_item.png"/>
         <p>{{item.name}}</p>
         <p>{{item.description}}</p>

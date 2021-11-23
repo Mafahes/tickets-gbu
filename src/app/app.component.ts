@@ -80,6 +80,12 @@ export class AppComponent implements OnInit{
   async parseUser(): Promise<void> {
     if (!!localStorage.getItem('api_token')) {
       this.signalR.startConnection().then(i => {
+        setInterval(async () => {
+          if(this.signalR.state() === null || this.signalR.state() !== 'Connected') {
+            console.log('socket connection lost')
+            await this.signalR.startConnection();
+          }
+        }, 2000);
         this.initialized = true;
       });
     } else {

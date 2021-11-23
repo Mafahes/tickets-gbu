@@ -3,6 +3,7 @@
     <div *ngFor="let item of rooms.data" class="col-2">
       <div class="card__rooms d-flex pt-5 flex-column h-100 justify-content-center align-items-center" style="gap: 28px">
         <mat-icon (click)="deleteRoom(item.id)" class="hover-pointer" style="position: absolute; top: 10px; right: 25px">close</mat-icon>
+        <mat-icon [routerLink]="'/admin/rooms/' + item.id" class="hover-pointer" style="position: absolute; top: 10px; right: 50px">edit</mat-icon>
         <span>{{item?.name}}</span>
         <span>{{item?.address}}</span>
       </div>

@@ -43,6 +43,9 @@ export class ApiService {
   createRoom(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/rooms`, data);
   }
+  updateRoom(data): Observable<any> {
+    return this.http.put<any>(`${Api.API_LINK}api/rooms`, data);
+  }
   getWindows(id): Observable<Window[]> {
     return this.http.get<Window[]>(`${Api.API_LINK}api/rooms/windows?roomId=${id}`)
       .pipe(map(e => e.map((e2) => ({...e2, checked: false}))));
@@ -86,8 +89,14 @@ export class ApiService {
   getReasons(): Observable<Reason[]> {
     return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonover`);
   }
+  delReason(id): Observable<Reason[]> {
+    return this.http.delete<Reason[]>(`${Api.API_LINK}api/reasonover?id=${id}`);
+  }
   getPostpones(): Observable<Reason[]> {
     return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonpostpone`);
+  }
+  delPostpone(id): Observable<Reason[]> {
+    return this.http.delete<Reason[]>(`${Api.API_LINK}api/reasonpostpone?id=${id}`);
   }
   uploadFile(data): Observable<File2[]> {
     return this.http.post<File2[]>(`${Api.API_LINK}api/appfiles`, data);
@@ -109,6 +118,9 @@ export class ApiService {
   }
   getReasonRedirects(): Observable<Reason[]> {
     return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonredirect`);
+  }
+  delReasonRedirects(id): Observable<Reason[]> {
+    return this.http.delete<Reason[]>(`${Api.API_LINK}api/reasonredirect?id=${id}`);
   }
   overTicket(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/tickets/over`, data);

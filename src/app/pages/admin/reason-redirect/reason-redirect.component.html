@@ -1,13 +1,14 @@
 <div class="container-fluid" *ngIf="!!reasons">
   <div class="row">
     <div *ngFor="let item of reasons" class="col-2">
-      <div class="card__rooms d-flex flex-column h-100 justify-content-center align-items-center" style="gap: 28px">
+      <div class="card__rooms d-flex flex-column h-100 justify-content-center pt-4 align-items-center" style="gap: 28px">
+        <mat-icon (click)="delete(item.id)" class="hover-pointer" style="position: absolute; top: 10px; right: 25px">close</mat-icon>
         <span>{{item?.name}}</span>
         <span>{{item?.description}}</span>
       </div>
     </div>
     <div class="col-2">
-      <div routerLink="/admin/redirect/new" class="card__rooms noborder hover-pointer d-flex flex-column h-100 justify-content-center align-items-center" style="gap: 28px; min-height: 100px">
+      <div routerLink="/admin/redirect/new" class="card__rooms hover-pointer d-flex flex-column h-100 justify-content-center align-items-center" style="gap: 28px; min-height: 100px">
         <span>+</span>
       </div>
     </div>

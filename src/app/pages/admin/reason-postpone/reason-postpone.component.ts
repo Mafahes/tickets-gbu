@@ -17,5 +17,9 @@ export class ReasonPostponeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.reasons = await this.api.getPostpones().toPromise();
   }
+  async delete(id): Promise<void> {
+    await this.api.delPostpone(id).toPromise();
+    this.reasons = await this.api.getPostpones().toPromise();
+  }
 
 }

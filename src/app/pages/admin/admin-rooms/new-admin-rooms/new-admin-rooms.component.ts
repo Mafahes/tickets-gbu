@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormArray, FormBuilder} from "@angular/forms";
 import {ApiService} from "../../../../shared/services/api.service";
+import {RoomData} from "../../../../shared/interfaces/room";
 
 @Component({
   selector: 'app-new-admin-rooms',
@@ -13,7 +14,8 @@ export class NewAdminRoomsComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private arouter: ActivatedRoute
   ) { }
   form = this.fb.group({
     name: '',
@@ -23,6 +25,7 @@ export class NewAdminRoomsComponent implements OnInit {
     windows: this.fb.array([]),
     fileId: 1
   })
+  roomId = null;
   getCatControls():FormArray {
     return this.form.controls['category'] as FormArray;
   }
@@ -73,10 +76,47 @@ export class NewAdminRoomsComponent implements OnInit {
     }))
   }
   async save(): Promise<void> {
-    await this.api.createRoom(this.form.value).toPromise();
+    await (!!this.roomId ? this.api.updateRoom(this.form.value) : this.api.createRoom(this.form.value)).toPromise();
     this.router.navigate(['/admin/rooms'])
   }
   ngOnInit(): void {
+    this.arouter.paramMap.subscribe(async (e) => {
+      if(!!e.get('id')) {
+        let room = (await this.api.getRooms().toPromise()).data.find((e2) => e2.id === parseInt(e.get('id')));
+        this.roomId = room.id;
+        // await new Promise((res, rej) => setTimeout(() => res(true), 2000))
+        this.form.patchValue({
+          name: room.name,
+          description: room.description,
+          address: room.address,
+          fileId: 1
+        });
+        var a = (this.form.get('category') as FormArray);
+        var a2 = (this.form.get('windows') as FormArray);
+        room.category.forEach((e) => a.push(
+          this.fb.group({
+            name: e.name,
+            description: e.description,
+            letter: e.letter,
+            services: this.fb.array(e.services.map((e2) => this.fb.group({
+              name: e2.name,
+              description: e2.description,
+              letter: e2.letter,
+              fileId: 1
+            }))),
+            fileId: 1
+          })
+        ));
+        (room?.windows ?? []).forEach((e) => a2.push(
+          this.fb.group({
+            name: e.name,
+            description: e.description,
+            letter: e.letter,
+            fileId: 1
+          })
+        ))
+      }
+    })
   }
 
 }

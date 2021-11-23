@@ -40,6 +40,7 @@ const routes: Routes = [
   { path: 'admin/rooms', component: AdminRoomsComponent, pathMatch: 'full' },
   { path: 'admin/sounds', component: TicketSoundsComponent, pathMatch: 'full' },
   { path: 'admin/rooms/new', component: NewAdminRoomsComponent, pathMatch: 'full' },
+  { path: 'admin/rooms/:id', component: NewAdminRoomsComponent, pathMatch: 'full' },
   { path: 'admin/over', component: ReasonOverComponent },
   { path: 'admin/over/new', component: NewReasonOverComponent, pathMatch: 'full' },
   { path: 'admin/postpone', component: ReasonPostponeComponent },

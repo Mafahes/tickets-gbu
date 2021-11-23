@@ -42,6 +42,11 @@ export class TicketListComponent implements OnInit, OnDestroy {
     this.getQueue();
     // setTimeout(() => this.router.navigate(['/safety']), 14000);
     this.interval = setInterval(() => {
+      if(this.queue.length === 0) {
+        this.selectedPage = 0;
+        this.selectedItem = 0;
+        return;
+      }
       if((this.selectedItem + 1) === this.queue[this.selectedPage].length) {
         this.selectedPage = this.queue.length === (this.selectedPage + 1) ? 0 : this.selectedPage + 1;
         this.selectedItem = 0;
@@ -52,12 +57,14 @@ export class TicketListComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.parseData();
-    this.socket.dataTransferSub('work').subscribe((e) => {
-      console.log(e);
-      let audio = new Audio();
-      audio.src = "assets/sound.mp3";
-      audio.load();
-      audio.play();
+    this.socket.dataTransferSub('work').subscribe(async (e: any) => {
+      var sound = (await this.api.getSounds().toPromise()).filter((e2) => e2.name === e.user.name);
+      if(sound.length > 0) {
+        let audio = new Audio();
+        audio.src = sound[0].file.fullUrl;
+        audio.load();
+        audio.play();
+      }
       this.parseData();
     });
     this.socket.dataTransferSub('register').subscribe((e) => {
