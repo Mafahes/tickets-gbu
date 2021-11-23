@@ -1,19 +1,20 @@
 <div class="container-fluid appbar">
   <div class="row header pt-4">
-    <div class="col-2 d-flex flex-column time-labels">
+    <div *ngIf="!completed" class="col-2 d-flex flex-column time-labels">
       <p>{{currentDate | date: 'HH:mm'}}</p>
       <p>{{currentDate | date: 'dd MMMM'}}</p>
     </div>
-    <div class="col-5 d-flex flex-column pleasure-text">
+    <div *ngIf="!completed" class="col-5 d-flex flex-column pleasure-text">
       <p>Пожалуйста, выберите<br>{{type === 1 ? 'категорию услуги' : 'услугу'}}</p>
     </div>
-    <div class="col-2 justify-content-center align-items-center d-flex flex-column">
+    <div *ngIf="!completed" class="col-2 justify-content-center align-items-center d-flex flex-column">
       <input class="search-panel w-100" placeholder="Поиск..."/>
     </div>
-    <div (click)="getHelp()" class="col-1 help-icon justify-content-center align-items-center d-flex flex-column">
+    <div *ngIf="!completed" (click)="getHelp()" class="col-1 help-icon justify-content-center align-items-center d-flex flex-column">
       <img src="assets/images/info_icon.png"/>
       <p>помощь<br>специалиста</p>
     </div>
+    <div class="col-10" *ngIf="completed"></div>
     <div class="col-2 d-flex flex-row justify-content-end">
       <img src="assets/images/logo.png" width="100"/>
     </div>
@@ -23,7 +24,7 @@
     </div>
   </div>
 </div>
-<div class="container cats-container" *ngIf="!!roomCats && !!roomId">
+<div class="container cats-container" *ngIf="!!roomCats && !!roomId && !completed">
   <div class="row" *ngIf="type === 1">
     <div *ngFor="let item of roomCats.category" class="col-4 mb-3">
       <div (click)="switchType(item)" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">
@@ -48,6 +49,25 @@
     <div class="col-12 mb-3">
       <div class="h-100 d-flex flex-column justify-content-center align-items-center">
         <span class="error-label">Выберите комнату для терминала!</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container cats-container" *ngIf="completed">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+        <span class="error-label">Пожалуйста, возьмите талон и<br>дождитесь своей очереди</span>
+        <div class="container-white my-5 w-50 p-4" style="gap: 20px">
+          <span class="label" style="font-size: 48px;text-align: center; color: black">{{ticket.service.name}}</span>
+          <span class="label" style="font-size: 36px; color: black">Талон</span>
+          <span class="label" style="font-size: 120px; color: black;font-family: HumanistBold, sans-serif">{{ticket.name}}</span>
+          <div class="d-flex w-100 flex-row justify-content-between">
+            <span class="label" style="font-size: 24px">Дата: {{ticket.dateAdd | date: 'dd.MM.yyyy'}}</span>
+            <span class="label" style="font-size: 24px">Время: {{ticket.dateAdd | date: 'HH:mm'}}</span>
+          </div>
+        </div>
+        <span class="label" style="color: white; font-size: 96px">{{countDown | counterPipe}}</span>
       </div>
     </div>
   </div>

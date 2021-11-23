@@ -41,16 +41,26 @@ p, span {
 .cats-container {
   padding-top: 180px;
 }
+.container-white {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 .error-label {
+  text-align: center;
+  line-height: 1.5em !important;
   font-family: HumanistRegular, sans-serif;
   color: white;
   font-size: 36px;
 }
 .cat-item {
+  min-height: 300px;
   background-color: white;
   padding: 40px 45px;
   p:nth-child(2) {
-    font-size: 48px;
+    font-size: 36px;
     text-align: center;
   }
   p:nth-child(3) {

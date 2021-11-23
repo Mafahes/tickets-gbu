@@ -5,7 +5,7 @@ import {ToolsService} from './tools.service';
 import {Api, Status} from '../configuration';
 import {map} from 'rxjs/operators';
 import {Session} from "../interfaces/self";
-import {File2, RoomObject} from "../interfaces/room";
+import {Category, File2, RoomObject} from "../interfaces/room";
 import {Cat} from "../interfaces/Cat";
 import {Queue} from "./queue";
 import {Window} from "../interfaces/window";
@@ -62,8 +62,8 @@ export class ApiService {
   getTicket(id): Observable<any> {
     return this.http.get<any>(`${Api.API_LINK}api/tickets/take?ticketId=${id}`);
   }
-  registerTicket(id): Observable<any> {
-    return this.http.get<any>(`${Api.API_LINK}api/tickets/register?serviceId=${id}`);
+  registerTicket(id): Observable<Category> {
+    return this.http.get<Category>(`${Api.API_LINK}api/tickets/register?serviceId=${id}`);
   }
   findTicket(text): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/tickets/find?name=${text}`, null);
@@ -103,6 +103,9 @@ export class ApiService {
   }
   deleteSound(id) {
     return this.http.delete(`${Api.API_LINK}api/sounds/${id}`);
+  }
+  deleteRoom(id) {
+    return this.http.delete(`${Api.API_LINK}api/rooms?id=${id}`);
   }
   getReasonRedirects(): Observable<Reason[]> {
     return this.http.get<Reason[]>(`${Api.API_LINK}api/reasonredirect`);

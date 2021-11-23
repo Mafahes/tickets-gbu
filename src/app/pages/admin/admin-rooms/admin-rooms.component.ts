@@ -17,5 +17,9 @@ export class AdminRoomsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.rooms = await this.api.getRooms().toPromise();
   }
+  async deleteRoom(i): Promise<void> {
+    await this.api.deleteRoom(i).toPromise()
+    this.rooms = await this.api.getRooms().toPromise();
+  }
 
 }
