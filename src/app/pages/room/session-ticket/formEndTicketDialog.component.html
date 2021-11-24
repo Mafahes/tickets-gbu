@@ -29,7 +29,23 @@
       <div class="col-12 p-0 my-3">
         <mat-divider></mat-divider>
       </div>
-      <div class="col-12 px-5 d-flex flex-column justify-content-center">
+      <ng-container *ngIf="data === 2">
+        <div class="col-12 d-flex flex-row justify-content-center align-items-center">
+       <span class="label2">
+         Укажите окно
+       </span>
+        </div>
+        <mat-radio-group
+          style="max-height: 88px; width: 100%"
+          [(ngModel)]="selectedWindow"
+          aria-labelledby="example-radio-group-label"
+          class="d-flex mx-3 flex-column radio-group">
+          <mat-radio-button class="my-2" color="primary" *ngFor="let option of windows" [value]="option.id">
+            <span class="radio-label ml-4">{{option.name}}</span>
+          </mat-radio-button>
+        </mat-radio-group>
+      </ng-container>
+      <div class="col-12 mt-3 px-5 d-flex flex-column justify-content-center">
         <span class="label">Комментарий</span>
       </div>
       <div class="col-8 d-flex mt-2 flex-column" style="gap: 10px">
@@ -37,7 +53,7 @@
         <input [(ngModel)]="comment" placeholder="Комментарий" class="input-comment"/>
       </div>
       <div class="col-4 d-flex justify-content-end align-items-end">
-        <button [disabled]="!selected" [mat-dialog-close]="{id: selected || null, comment: comment, inits: inits}" mat-raised-button>Готово</button>
+        <button [disabled]="!selected" [mat-dialog-close]="{id: selected || null, windowsId: selectedWindow, comment: comment, inits: inits}" mat-raised-button>Готово</button>
       </div>
     </div>
   </div>

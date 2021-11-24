@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Queue} from "../../../shared/services/queue";
+import {Queue, Windows} from "../../../shared/services/queue";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ApiService} from "../../../shared/services/api.service";
@@ -8,6 +8,7 @@ import {Tickets} from "../../../shared/interfaces/myTickets";
 import {Reason} from "../../../shared/interfaces/reason";
 import {AppComponent} from "../../../app.component";
 import {map} from "rxjs/operators";
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-session-ticket',
@@ -112,7 +113,10 @@ export class SessionTicketComponent implements OnInit {
   }
   async sendDialog(type = 1): Promise<void> {
     const dialogRef = this.dialog.open(TicketEndComponent, {
-      data: type
+      data: {
+        type: type,
+        roomId: this.app.sessions[0].roomId
+      }
     });
 
     dialogRef.afterClosed().subscribe(async (result) => {
@@ -147,18 +151,24 @@ export class SessionTicketComponent implements OnInit {
 export class TicketEndComponent {
   constructor(
     private api: ApiService,
-    @Inject(MAT_DIALOG_DATA) public data: any // type 1 - завершить, type 2 - перенаправить, type 3 - отложить
+    @Inject(MAT_DIALOG_DATA) public type: any // type 1 - завершить, type 2 - перенаправить, type 3 - отложить
   ) {
+    this.data = this.type.type;
+    console.log(this.data);
     switch (this.data) {
       case 1: {
-        this.api.getReasons().subscribe((e) => {
+          this.api.getReasons().subscribe((e) => {
           this.reasons = e;
         });
         break;
       }
       case 2: {
-        this.api.getReasonRedirects().subscribe((e) => {
-          this.reasons = e;
+        forkJoin([
+          this.api.getReasonRedirects(),
+          this.api.getWindows(this.type.roomId)
+        ]).subscribe((e) => {
+          this.reasons = e[0];
+          this.windows = e[1];
         });
         break;
       }
@@ -171,7 +181,10 @@ export class TicketEndComponent {
     }
   }
   reasons: Reason[] = [];
+  windows: Windows[] = [];
   selected;
+  selectedWindow;
   inits = '';
   comment = '';
+  data;
 }

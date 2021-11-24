@@ -9,7 +9,7 @@
       <button (click)="deleteUser(item.nummer)" mat-raised-button>Удалить</button>
     </div>
     <div class="col-8 d-flex align-items-center">
-      <span>(ID: {{item?.nummer}}) {{item?.secondName || '-'}} {{item?.firstName || '-'}} {{item?.patronymic || '-'}}</span>
+      <span>(ID: {{item?.nummer}}) {{item?.secondName || '-'}} {{item?.firstName || '-'}} {{item?.patronymic || '-'}} ({{item?.email || '-'}})</span>
     </div>
   </div>
 </div>

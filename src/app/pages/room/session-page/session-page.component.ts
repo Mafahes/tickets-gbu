@@ -45,7 +45,10 @@ export class SessionPageComponent implements OnInit, OnDestroy {
   }
   async sendDialog(type = 1): Promise<void> {
     const dialogRef = this.dialog.open(TicketEndComponent, {
-      data: type
+      data: {
+        type,
+        roomId: this.app.sessions[0].roomId
+      }
     });
 
     dialogRef.afterClosed().subscribe(async (result) => {

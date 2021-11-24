@@ -110,6 +110,9 @@ export class ApiService {
   createSound(data) {
     return this.http.post(`${Api.API_LINK}api/sounds`, data);
   }
+  createUser(data) {
+    return this.http.put(`${Api.API_LINK}api/users/admin/add`, data);
+  }
   deleteSound(id) {
     return this.http.delete(`${Api.API_LINK}api/sounds/${id}`);
   }
