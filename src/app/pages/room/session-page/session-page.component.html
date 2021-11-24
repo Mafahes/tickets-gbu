@@ -66,11 +66,11 @@
       <button [disabled]="session.pause.length > 0" (click)="callByNumber()" class="w-100" mat-raised-button>Вызов<br/>по номеру</button>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-3">
-      <button [disabled]="session.pause.length > 0" class="w-100" mat-raised-button>Вызов из списка<br/>отложенных</button>
-    </div>
-  </div>
+<!--  <div class="row mt-5">-->
+<!--    <div class="col-3">-->
+<!--      <button [disabled]="session.pause.length > 0" class="w-100" mat-raised-button>Вызов из списка<br/>отложенных</button>-->
+<!--    </div>-->
+<!--  </div>-->
   <div class="row mt-4">
     <div *ngIf="queue.length > 0" class="col-12 mb-4">
       <span class="label ml-4">Очередь</span>

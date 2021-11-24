@@ -39,12 +39,14 @@ export class TicketSoundsComponent implements OnInit {
       const fd = new FormData();
       fd.append('uploadedFiles', this.form.get('file').value);
       var file = await this.api.uploadFile(fd).toPromise()
+      const {name} = this.form.value;
       await this.api.createSound({
-        ...this.form.value,
+        name,
         fileId: file[0].id
       }).toPromise();
       this.sounds = await this.api.getSounds().toPromise();
       this.loading = false;
+      this.form.reset();
     }
   }
   async ngOnInit(): Promise<void> {

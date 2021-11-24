@@ -38,10 +38,14 @@ export class AppComponent implements OnInit{
     return localStorage.getItem('apiType');
   }
   async getSessions(): Promise<Session[]> {
-    this.sessions = await this.api.getSession().toPromise();
-    this.sessionsInitialized = true;
-    return this.sessions;
-  }
+    return new Promise((res, rej) => {
+      this.api.getSession().subscribe((e) => {
+        this.sessions = JSON.parse(JSON.stringify(e)); // remove reference
+        this.sessionsInitialized = true;
+        console.log(e);
+        res(e);
+      });
+    })}
   switchApi(type: boolean): void {
     if (type) {
       localStorage.setItem('apiType', 'prod');
@@ -109,7 +113,7 @@ export class AppComponent implements OnInit{
         if(this.sessions.length > 0) {
           this.router.navigate(['room/session/' + this.sessions[0].id]);
         } else {
-          this.router.navigate([route]);
+          this.router.navigate(['/room/list']);
         }
       }
     }

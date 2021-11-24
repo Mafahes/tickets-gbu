@@ -5,7 +5,14 @@ export interface Session {
   dateStart: Date;
   dateOver?: any;
   dateAdd: Date;
-  pause?: any[];
+  pause?: Pause[];
+  pauses?: Pause[];
   mainCategory?: any;
   secondCategory?: any;
+}
+export interface Pause {
+  id: number;
+  dateStart: Date;
+  dateOver?: any;
+  dateAdd: Date;
 }

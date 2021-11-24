@@ -28,7 +28,7 @@ export class ApiService {
   getSession(): Observable<Session[]> {
     return this.http.get<Session[]>(`${Api.API_LINK}api/sessions`)
       .pipe(
-        map(e => e.map(e2 => ({...e2, pause: e2.pause.filter(e3 => e3.dateOver === null)})))
+        map(e => e.map(e2 => ({...e2, pauses: [...e2.pause], pause: e2.pause.filter(e3 => e3.dateOver === null)})))
       );
   }
   stopSession(): Observable<any> {

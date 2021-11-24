@@ -80,8 +80,15 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     if(this.queue.length > 0) {
       this.activeTicket = 0;
     }
-    this.timer = new Date().getTime() - new Date(a[0].dateStart).getTime();
-    this.timer = Math.floor(this.timer/1000);
+    const timers = a[0].pauses.filter(e => e.dateOver !== null).map((e) => {
+      const date1 = new Date(e.dateStart);
+      const date2 = new Date(e.dateOver);
+      const diffTime = Math.abs(date2.getTime() - date1.getTime());
+      const diffDays = Math.ceil(diffTime / (1000));
+      return diffDays;
+    });
+    this.timer = (new Date().getTime() - new Date(a[0].dateStart).getTime());
+    this.timer = Math.floor(this.timer/1000) - (timers.length > 0 ? timers.reduce((a, b) => a + b) : 0);
     this.session = a[0];
     let tickets = await this.api.getMyTickets().toPromise();
     if(tickets.length > 0) {
@@ -93,7 +100,11 @@ export class SessionPageComponent implements OnInit, OnDestroy {
     } catch (e) {
 
     }
-    this.interval = setInterval(() => ++this.timer, 1000)
+    this.interval = setInterval(() => {
+      if(this.session.pause.length === 0) {
+        ++this.timer
+      }
+    }, 1000)
   }
   changeActiveTicket(index): void {
     this.activeTicket = index;
@@ -129,9 +140,14 @@ export class SessionPageComponent implements OnInit, OnDestroy {
   callByNumber(): void {
     const dialogRef = this.dialog.open(SessionPageDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe( async (result) => {
       if(!!result) {
-        this.api.findTicket(result).toPromise();
+        if(!!this.queue.find((e) => e.name.toLowerCase() === result.toLowerCase())) {
+          console.log(result);
+          await this.api.getTicket(this.queue.find((e) => e.name.toLowerCase() === result.toLowerCase()).id).toPromise();
+          this.router.navigate([`/room/session/${this.sessionId}/ticket/${this.queue.find((e) => e.name.toLowerCase() === result.toLowerCase()).id}`])
+        }
+        // this.api.findTicket(result).toPromise();
       }
     });
   }
