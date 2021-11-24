@@ -53,7 +53,7 @@
     </div>
   </div>
 </div>
-<div class="container cats-container" *ngIf="completed">
+<div class="container cats-container" *ngIf="completed && !!ticket">
   <div class="row">
     <div class="col-12 mb-3">
       <div class="h-100 d-flex flex-column justify-content-center align-items-center">
@@ -68,6 +68,15 @@
           </div>
         </div>
         <span class="label" style="color: white; font-size: 96px">{{countDown | counterPipe}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container d-flex justify-content-center align-items-center p-0 cats-container" style="height: 100vh" *ngIf="completed && !ticket">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+        <span class="error-label">Прием приостановлен.</span>
       </div>
     </div>
   </div>

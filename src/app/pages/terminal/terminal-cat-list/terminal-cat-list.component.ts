@@ -32,6 +32,11 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
   ) { }
   async ngOnInit(): Promise<void> {
     this.interval = setInterval(() => this.currentDate = new Date(), 1000);
+    this.socket.dataTransferSub('Power').subscribe((e) => {
+      console.log(e)
+      this.ticket = null;
+      this.completed = e.user.state;
+    })
     this.arouter.paramMap.subscribe(async (i) => {
       this.roomId = i.get('id') === null ? null : parseInt(i.get('id'));
       this.roomCats = (await this.api.getRooms().toPromise()).data[0];

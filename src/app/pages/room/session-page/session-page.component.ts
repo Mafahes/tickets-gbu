@@ -23,15 +23,20 @@ export class SessionPageComponent implements OnInit, OnDestroy {
   activeTicket: number = null;
   interval;
   sessionId;
+  terminalDisabled = false;
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
     public api: ApiService,
-    private app: AppComponent,
+    public app: AppComponent,
     private dialog: MatDialog,
     private arouter: ActivatedRoute,
     private socket: SignalRService
   ) { }
+  switchTerminals(): void {
+    this.terminalDisabled = !this.terminalDisabled;
+    this.socket.invokeMethod('Power', {id: 0, state: this.terminalDisabled});
+  }
   get timeSeconds(): any {
     let date = new Date(null);
     date.setSeconds(this.timer);

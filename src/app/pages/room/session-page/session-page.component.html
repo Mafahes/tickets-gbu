@@ -1,7 +1,10 @@
 <div *ngIf="!!session" class="container-fluid d-flex flex-column py-3" style="height: 100vh">
   <div class="row">
-    <div class="col-3 d-flex justify-content-start align-items-center">
+    <div class="col-3 d-flex flex-column justify-content-start align-items-start" style="gap: 5px">
       <p class="label">Пульт оператора</p>
+      <button (click)="switchTerminals()" class="d-flex justify-content-center align-items-center" style="font-size: 16px !important; background-color: red; height: 36px;" mat-raised-button>
+        <span style="font-size: 16px">{{terminalDisabled ? 'Включить' : 'Выключить'}} терминалы</span>
+      </button>
     </div>
     <div class="col-3 d-flex justify-content-start align-items-center">
       <p class="label">Время сессии: {{timeSeconds}}</p>
@@ -12,8 +15,13 @@
     <div class="col-2 d-flex flex-row justify-content-between">
       <button class="w-100" (click)="stopSession()" mat-raised-button>Завершить сессию</button>
     </div>
-    <div class="col-2 d-flex flex-row justify-content-between">
-      <button class="w-100" [routerLink]="'/room/session/' + sessionId + '/stats'" mat-raised-button>Статистика</button>
+    <div class="col-1 d-flex flex-row justify-content-between">
+      <button class="w-100" style="font-size: 16px !important;" [routerLink]="'/room/session/' + sessionId + '/stats'" mat-raised-button>
+        <span style="font-size: 16px">Статистика</span>
+      </button>
+    </div>
+    <div class="col-1 d-flex flex-row justify-content-between">
+      <button class="w-100" mat-raised-button (click)="app.exit()">Выход</button>
     </div>
   </div>
   <div class="row my-3">
