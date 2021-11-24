@@ -30,6 +30,7 @@
     "@nghacks/uploader": "^0.1.1",
     "@types/quill": "^1.3.10",
     "angular-code-input": "^1.5.0",
+    "angular-simple-keyboard": "^1.1.2",
     "angular-svg-icon": "^12.0.0",
     "bootstrap": "^4.6.0",
     "file-saver": "^2.0.5",

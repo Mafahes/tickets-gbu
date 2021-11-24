@@ -22,40 +22,46 @@ import {UsersComponent} from "./pages/admin/users/users.component";
 import {NewUserComponent} from "./pages/admin/users/new-user/new-user.component";
 import {SessionStatsComponent} from "./pages/room/session-stats/session-stats.component";
 import {TicketSoundsComponent} from "./pages/admin/ticket-sounds/ticket-sounds.component";
+import {ErrorPageComponent} from "./pages/error-page/error-page.component";
+import {AdminStatsComponent} from "./pages/admin/admin-stats/admin-stats.component";
 
-const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'monitor/:id/list', component: TicketListComponent },
-  { path: 'monitor/safety', component: SafetyBordComponent },
-  { path: 'terminal', component: TerminalCatListComponent },
-  { path: 'terminal/cats/', component: TerminalCatListComponent },
-  { path: 'terminal/cats/:id', component: TerminalCatListComponent },
-  { path: 'room/list', component: RoomSubdivisionsComponent },
-  { path: 'room/list/:id/windows', component: RoomWindowsComponent },
-  { path: 'room/list/:id/windows/:wid/cats', component: RoomCatsComponent },
-  { path: 'room/session/:id', component: SessionPageComponent },
-  { path: 'room/session/:id/stats', component: SessionStatsComponent },
-  { path: 'room/session/:id/ticket/:tId', component: SessionTicketComponent },
-  { path: 'admin/rooms', component: AdminRoomsComponent, pathMatch: 'full' },
-  { path: 'admin/sounds', component: TicketSoundsComponent, pathMatch: 'full' },
-  { path: 'admin/rooms/new', component: NewAdminRoomsComponent, pathMatch: 'full' },
-  { path: 'admin/rooms/:id', component: NewAdminRoomsComponent, pathMatch: 'full' },
-  { path: 'admin/over', component: ReasonOverComponent },
-  { path: 'admin/over/new', component: NewReasonOverComponent, pathMatch: 'full' },
-  { path: 'admin/postpone', component: ReasonPostponeComponent },
-  { path: 'admin/postpone/new', component: NewReasonPostponeComponent, pathMatch: 'full' },
-  { path: 'admin/redirect', component: ReasonRedirectComponent },
-  { path: 'admin/redirect/new', component: NewReasonRedirectComponent, pathMatch: 'full' },
-  { path: 'admin/users', component: UsersComponent },
-  { path: 'admin/users/new', component: NewUserComponent },
-  { path: 'admin/users/:id', component: NewUserComponent },
-  { path: 'admin', redirectTo: 'admin/rooms'}
-
-];
+export class RouteList {
+  static routes: Routes = [
+    { path: '', component: DashboardComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'monitor/:id/list', component: TicketListComponent },
+    { path: 'monitor/safety', component: SafetyBordComponent },
+    { path: 'terminal', component: TerminalCatListComponent },
+    { path: 'terminal/cats/', component: TerminalCatListComponent },
+    { path: 'terminal/cats/:id', component: TerminalCatListComponent },
+    { path: 'room/list', component: RoomSubdivisionsComponent },
+    { path: 'room/list/:id/windows', component: RoomWindowsComponent },
+    { path: 'room/list/:id/windows/:wid/cats', component: RoomCatsComponent },
+    { path: 'room/session/:id', component: SessionPageComponent },
+    { path: 'room/session/:id/stats', component: SessionStatsComponent },
+    { path: 'room/session/:id/ticket/:tId', component: SessionTicketComponent },
+    { path: 'admin/rooms', component: AdminRoomsComponent, pathMatch: 'full' },
+    { path: 'admin/sounds', component: TicketSoundsComponent, pathMatch: 'full' },
+    { path: 'admin/rooms/new', component: NewAdminRoomsComponent, pathMatch: 'full' },
+    { path: 'admin/rooms/:id', component: NewAdminRoomsComponent, pathMatch: 'full' },
+    { path: 'admin/over', component: ReasonOverComponent },
+    { path: 'admin/over/new', component: NewReasonOverComponent, pathMatch: 'full' },
+    { path: 'admin/postpone', component: ReasonPostponeComponent },
+    { path: 'admin/postpone/new', component: NewReasonPostponeComponent, pathMatch: 'full' },
+    { path: 'admin/redirect', component: ReasonRedirectComponent },
+    { path: 'admin/redirect/new', component: NewReasonRedirectComponent, pathMatch: 'full' },
+    { path: 'admin/users', component: UsersComponent },
+    { path: 'admin/stats', component: AdminStatsComponent },
+    { path: 'admin/users/new', component: NewUserComponent },
+    { path: 'admin/users/:id', component: NewUserComponent },
+    { path: 'admin', redirectTo: 'admin/rooms'},
+    { path: '**', redirectTo: 'error' },
+    { path: 'error', component: ErrorPageComponent }
+  ];
+}
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(RouteList.routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -96,6 +96,8 @@ import { NewUserComponent } from './pages/admin/users/new-user/new-user.componen
 import { SessionStatsComponent } from './pages/room/session-stats/session-stats.component';
 import { TicketSoundsComponent } from './pages/admin/ticket-sounds/ticket-sounds.component';
 import { CounterPipePipe } from './shared/components/counter-pipe.pipe';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { AdminStatsComponent } from './pages/admin/admin-stats/admin-stats.component';
 
 registerLocaleData(localeRu, 'ru');
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -150,7 +152,9 @@ export const MY_FORMATS = {
     NewUserComponent,
     SessionStatsComponent,
     TicketSoundsComponent,
-    CounterPipePipe
+    CounterPipePipe,
+    ErrorPageComponent,
+    AdminStatsComponent
   ],
   imports: [
     BrowserAnimationsModule,

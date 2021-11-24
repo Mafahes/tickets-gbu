@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {ActualizeDialogComponent} from './shared/components/actualize-dialog/actualize-dialog.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Session} from "./shared/interfaces/self";
+import {RouteList} from "./app-routing.module";
 
 @Component({
   selector: 'app-root',
@@ -22,8 +23,12 @@ export class AppComponent implements OnInit{
               private api: ApiService,
               private router: Router) {}
   route = '';
+  routes = RouteList.routes;
   sessions: Session[] = [];
   sessionsInitialized = false;
+  get isAdmin(): any {
+    return this.route.includes('admin');
+  }
   get isTerminal(): any {
     return this.route.includes('monitor') || this.route.includes('terminal');
   }
