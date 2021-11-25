@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="!!room">
   <div class="row">
     <div class="col-12 mb-4">
       <span class="title">Количество заявок:</span>
@@ -11,6 +11,26 @@
         </div>
         <img class="hover-pointer" src="assets/images/arrow_right.png"/>
       </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-2">
+      <select (ngModelChange)="filterArr($event, 1)" [(ngModel)]="a1" class="w-100">
+        <option value="" disabled selected>Залы</option>
+        <option *ngFor="let item of room.data" [value]="item.id">{{item.name}}</option>
+      </select>
+    </div>
+    <div class="col-2" *ngIf="selectedCategory.length > 0">
+      <select class="w-100" (ngModelChange)="filterArr($event, 2)" [(ngModel)]="a2">
+        <option value="" disabled selected>Категории</option>
+        <option *ngFor="let item of selectedCategory" [value]="item.id">{{item.name}}</option>
+      </select>
+    </div>
+    <div class="col-2" *ngIf="selectedService.length > 0">
+      <select (ngModelChange)="filterArr($event, 3)" [(ngModel)]="a3" class="w-100">
+        <option value="" disabled selected>Услуги</option>
+        <option *ngFor="let item of selectedService" [value]="item.id">{{item.name}}</option>
+      </select>
     </div>
   </div>
 </div>
