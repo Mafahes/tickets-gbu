@@ -35,7 +35,7 @@
     </div>
   </div>
   <div class="row" *ngIf="type === 2">
-    <div *ngFor="let item of selectedCat.services" class="col-4 mb-3">
+    <div *ngFor="let item of selectedCat.services" class="col-4 mb-4">
       <div (click)="registerTicket(item.id)" [class.active-block]="selectedTicket === item.id" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">
         <img src="assets/images/cat_item.png"/>
         <p>{{item.name}}</p>
