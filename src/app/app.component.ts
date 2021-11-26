@@ -91,8 +91,7 @@ export class AppComponent implements OnInit{
       this.signalR.startConnection().then(i => {
         setInterval(async () => {
           if(this.signalR.state() === null || this.signalR.state() !== 'Connected') {
-            console.log('socket connection lost')
-            await this.signalR.startConnection();
+            window.location.reload();
           }
         }, 2000);
         this.initialized = true;

@@ -62,8 +62,15 @@ export class SessionTicketComponent implements OnInit {
     if(this.queue.length > 0) {
       this.activeTicket = 0;
     }
+    const timers = this.app.sessions[0].pauses.filter(e => e.dateOver !== null).map((e) => {
+      const date1 = new Date(e.dateStart);
+      const date2 = new Date(e.dateOver);
+      const diffTime = Math.abs(date2.getTime() - date1.getTime());
+      const diffDays = Math.ceil(diffTime / (1000));
+      return diffDays;
+    });
     this.timer = new Date().getTime() - new Date(this.app.sessions[0].dateStart).getTime();
-    this.timer = Math.floor(this.timer/1000);
+    this.timer = Math.floor(this.timer/1000) - (timers.length > 0 ? timers.reduce((a, b) => a + b) : 0);
     this.ticketTimer = new Date().getTime() - new Date(this.myTicket.dateStart).getTime();
     this.ticketTimer = Math.floor(this.ticketTimer/1000);
     try {
@@ -72,7 +79,9 @@ export class SessionTicketComponent implements OnInit {
 
     }
     this.interval = setInterval(() => {
-      ++this.timer;
+      if(this.app.sessions[0].pause.length === 0) {
+        ++this.timer;
+      }
       ++this.ticketTimer;
     }, 1000)
   }
