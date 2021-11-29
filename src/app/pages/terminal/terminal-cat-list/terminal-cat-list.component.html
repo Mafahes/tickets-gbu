@@ -1,22 +1,14 @@
 <div class="container-fluid appbar">
   <div class="row header pt-4">
-    <div *ngIf="!completed" class="col-2 d-flex flex-column time-labels">
-      <p>{{currentDate | date: 'HH:mm'}}</p>
-      <p>{{currentDate | date: 'dd MMMM'}}</p>
+    <div class="col-2">
+      <span>
+        Государственное<br/>Бюджетное<br/>Учреждение<br/>города Москвы<br/>Ритуал
+      </span>
     </div>
-    <div *ngIf="!completed" class="col-5 d-flex flex-column pleasure-text">
-      <p>Пожалуйста, выберите<br>{{type === 1 ? 'категорию услуги' : 'услугу'}}</p>
-    </div>
-    <div *ngIf="!completed" class="col-2 justify-content-center align-items-center d-flex flex-column">
-<!--      <input class="search-panel w-100" placeholder="Поиск..."/>-->
-    </div>
-    <div *ngIf="!completed" (click)="getHelp()" class="col-1 help-icon justify-content-center align-items-center d-flex flex-column">
-      <img src="assets/images/info_icon.png"/>
-      <p>помощь<br>специалиста</p>
-    </div>
-    <div class="col-10" *ngIf="completed"></div>
-    <div class="col-2 d-flex flex-row justify-content-end">
-      <img src="assets/images/logo.png" width="100"/>
+    <div class="col-10 d-flex justify-content-end align-items-start">
+      <span>
+        {{currentDate | date: 'HH:mm'}}
+      </span>
     </div>
   </div>
   <div class="row d-flex">
@@ -24,7 +16,7 @@
     </div>
   </div>
 </div>
-<div class="container cats-container" *ngIf="!!roomCats && !!roomId && !completed">
+<div class="container-fluid cats-container" style="height: calc(100vh - 150px);" *ngIf="!!roomCats && !!roomId && !completed">
   <div class="row" *ngIf="type === 1">
     <div *ngFor="let item of roomCats.category" class="col-4 mb-3">
       <div (click)="switchType(item)" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">
@@ -34,15 +26,49 @@
       </div>
     </div>
   </div>
-  <div class="row" *ngIf="type === 2">
-    <div *ngFor="let item of selectedCat.services" class="col-4 mb-4">
-      <div (click)="registerTicket(item.id)" [class.active-block]="selectedTicket === item.id" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">
-        <img src="assets/images/cat_item.png"/>
-        <p>{{item.name}}</p>
-        <p>{{item.description}}</p>
+  <div class="row my-3 mb-4">
+    <div class="col-12">
+      <span class="title">Выберите услугу</span>
+    </div>
+  </div>
+  <div class="row my-3 h-100">
+    <div class="col-3" (click)="registerTicket(item.id)" [class.active-block]="selectedTicket === item.id" *ngFor="let item of selectedCat.services; let i = index;">
+      <div class="container-cat d-flex flex-column justify-content-between">
+        <div>
+          <span>{{item.name}}</span>
+        </div>
+        <ng-container [ngSwitch]="i">
+          <img *ngSwitchCase="0"
+               class="mb-5"
+               style="height: 300px;width: 100%;object-position: bottom;object-fit: cover;"
+               src="https://electronicqueue.3dcafe.ru/upload/9dbfd20c-c73e-45d8-b7ec-04244c11a298.png"/>
+          <img *ngSwitchCase="1"
+               class="mb-5"
+               style="height: 300px;width: 100%;object-fit: contain;"
+               src="https://electronicqueue.3dcafe.ru/upload/63fd08dd-1e69-4a5a-9865-788a9af27f0e.png"
+          />
+          <img *ngSwitchCase="2"
+               class="mb-5"
+               style="height: 300px;width: 100%;object-position: bottom;object-fit: cover;"
+               src="https://electronicqueue.3dcafe.ru/upload/b27eb62e-a973-4ede-a749-59d0fbecf5bc.png"
+          />
+          <img *ngSwitchCase="3"
+               class="mb-5"
+               src="https://electronicqueue.3dcafe.ru/upload/e21e72b0-f0c8-467c-b1af-b9a26168ca5b.png"
+               style="height: 300px;width: 100%;object-fit: contain;"/>
+        </ng-container>
       </div>
     </div>
   </div>
+<!--  <div class="row" *ngIf="type === 2">-->
+<!--    <div *ngFor="let item of selectedCat.services" class="col-4 mb-4">-->
+<!--      <div (click)="registerTicket(item.id)" [class.active-block]="selectedTicket === item.id" class="cat-item h-100 d-flex flex-column justify-content-center align-items-center">-->
+<!--        <img src="assets/images/cat_item.png"/>-->
+<!--        <p>{{item.name}}</p>-->
+<!--        <p>{{item.description}}</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 </div>
 <div class="container cats-container" *ngIf="!roomId">
   <div class="row">

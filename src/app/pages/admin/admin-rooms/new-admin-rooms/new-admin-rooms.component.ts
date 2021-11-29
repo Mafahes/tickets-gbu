@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {FormArray, FormBuilder} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {ApiService} from "../../../../shared/services/api.service";
 import {RoomData} from "../../../../shared/interfaces/room";
 
@@ -66,13 +66,24 @@ export class NewAdminRoomsComponent implements OnInit {
       fileId: 1
     }))
   }
+  async addServiceFile(catIndex, serviceIndex, e) {
+    if(!e.target.files.length) return;
+    let cat = ((this.form.get('category') as FormArray).controls[catIndex].get('services') as FormArray).controls[serviceIndex] as FormGroup;
+    const fd = new FormData();
+    fd.append('uploadedFiles', e.target.files[0])
+    var file = await this.api.uploadFile(fd).toPromise();
+    cat.patchValue({
+      fileId: file[0].id
+    })
+  }
   addServiceControl(index) {
     let cats = (this.form.get('category') as FormArray).controls[index].get('services') as FormArray;
     cats.push(this.fb.group({
       name: '',
       description: '',
       letter: '',
-      fileId: 1
+      fileUrl: '',
+      fileId: 0
     }))
   }
   async save(): Promise<void> {

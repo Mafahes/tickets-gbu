@@ -33,7 +33,6 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.interval = setInterval(() => this.currentDate = new Date(), 1000);
     this.socket.dataTransferSub('Power').subscribe((e) => {
-      console.log(e)
       this.ticket = null;
       this.completed = e.user.state;
     })
