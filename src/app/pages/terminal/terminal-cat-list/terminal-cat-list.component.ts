@@ -58,7 +58,7 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
     if(this.loading) return;
     this.selectedTicket = id;
     this.loading = true;
-    await new Promise((res, rej) => setTimeout(() => res(true), 2000));
+    await new Promise((res, rej) => setTimeout(() => res(true), 500));
     this.ticket = await this.api.registerTicket(id).toPromise();
     this.selectedTicket = 0;
     this.completed = true;

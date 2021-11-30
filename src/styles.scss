@@ -10,6 +10,9 @@ body{
   -ms-user-select: none;
   user-select: none;
 }
+.none-hover, .none-hover * {
+  cursor: none;
+}
 @font-face {
   font-family: Open-SansRegular;
   src: url(assets/fonts/OpenSans-Regular.ttf) ;
