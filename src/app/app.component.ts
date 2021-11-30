@@ -1,10 +1,9 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router, Routes} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {ApiService} from './shared/services/api.service';
 import {Api, ApiTypes} from './shared/configuration';
 import {SignalRService} from './shared/services/signal-r.service';
 import {MatDialog} from '@angular/material/dialog';
-import {ActualizeDialogComponent} from './shared/components/actualize-dialog/actualize-dialog.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Session} from "./shared/interfaces/self";
 import {RouteList} from "./app-routing.module";
@@ -77,9 +76,16 @@ export class AppComponent implements OnInit{
         }
       }
     }
-    this.router.events.subscribe((e) => {
+    this.router.events.subscribe(async (e) => {
       if (e instanceof NavigationEnd) {
-        console.log(e);
+        if(e.url.includes('/room/session/')) {
+          this.initialized = false;
+          await this.signalR.startConnection();
+          this.initialized = true;
+        } else {
+          await this.signalR.dropConnection();
+        }
+        console.log(e.url);
         this.checkAuth(e.url);
         this.route = e.url;
       }
@@ -88,18 +94,14 @@ export class AppComponent implements OnInit{
   }
   async parseUser(): Promise<void> {
     if (!!localStorage.getItem('api_token')) {
-      this.signalR.startConnection().then(i => {
-        setInterval(async () => {
-          if(this.signalR.state() === null || this.signalR.state() !== 'Connected') {
-            window.location.reload();
-          }
-        }, 2000);
+        // setInterval(async () => {
+        //   if(this.signalR.state() === null || this.signalR.state() !== 'Connected') {
+        //     window.location.reload();
+        //   }
+        // }, 2000);
         this.initialized = true;
-      });
     } else {
-      this.signalR.startConnection().then(i => {
         this.initialized = true;
-      });
     }
   }
   exit(): void {

@@ -23,25 +23,35 @@ export class TicketListComponent implements OnInit, OnDestroy {
   queue: Queue[][] = [];
   selectedItem: any;
   selectedPage = 0;
-  async getQueue(): Promise<void> {
-    this.arouter.paramMap.subscribe(async (e) => {
-      this.queue = _.chunk((
-        await this.api.getQueue().pipe(
-          map(i => i.filter(e2 => e2.roomId === parseInt(e.get('id'))))
-        ).toPromise()), 5);
-      if(this.queue.length === 0) {
-        this.selectedItem = null;
-        this.selectedPage = 0;
-      }
+  async getQueue(init = false): Promise<void> {
+    await new Promise((res, rej) => {
+      this.arouter.paramMap.subscribe(async (e) => {
+        var a = _.chunk((
+          await this.api.getQueue().pipe(
+            map(i => i.filter(e2 => e2.roomId === parseInt(e.get('id'))))
+          ).toPromise()), 5);
+        console.log(_(this.queue).differenceWith(a, _.isEqual).isEmpty());
+        if(init) {
+          this.queue = a;
+        }
+        if(!!this.interval && !_(this.queue).differenceWith(a, _.isEqual).isEmpty()) {
+          clearInterval(this.interval);
+          this.queue = a;
+        }
+        if(this.queue.length === 0) {
+          this.selectedItem = null;
+          this.selectedPage = 0;
+        }
+        res(true);
+      })
     })
   }
-  parseData(): void {
-    if(!!this.interval) {
-      clearInterval(this.interval);
-    }
-    this.getQueue();
+  async parseData(init = false): Promise<void> {
+    clearInterval(this.interval);
+    await this.getQueue(init);
     // setTimeout(() => this.router.navigate(['/safety']), 14000);
     this.interval = setInterval(() => {
+      console.log('interval');
       if(this.queue.length === 0) {
         this.selectedPage = 0;
         this.selectedItem = 0;
@@ -53,10 +63,10 @@ export class TicketListComponent implements OnInit, OnDestroy {
         return;
       }
       this.selectedItem = this.selectedItem === undefined ? 0 : this.selectedItem + 1 === this.queue[this.selectedPage].length ? 0 : this.queue[this.selectedPage].length < this.selectedItem + 1 ? 0 : this.selectedItem + 1;
-    }, 2000);
+    }, 1000);
   }
   ngOnInit(): void {
-    this.parseData();
+    this.parseData(true);
     this.socket.dataTransferSub('work').subscribe(async (e: any) => {
       var sound = (await this.api.getSounds().toPromise()).filter((e2) => e2.name === e.user.name);
       if(sound.length > 0) {
@@ -65,12 +75,6 @@ export class TicketListComponent implements OnInit, OnDestroy {
         audio.load();
         audio.play();
       }
-      this.parseData();
-    });
-    this.socket.dataTransferSub('register').subscribe((e) => {
-      this.parseData();
-    });
-    this.socket.dataTransferSub('over').subscribe((e) => {
       this.parseData();
     });
   }

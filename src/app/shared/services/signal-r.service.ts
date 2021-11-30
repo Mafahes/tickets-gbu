@@ -13,6 +13,13 @@ export class SignalRService {
     return this.hubConnection
       .start();
   }
+  dropConnection = async () => {
+    if((this.hubConnection?.state || '') === 'Connected') {
+      return this.hubConnection.stop();
+    } else {
+      return new Promise((r, j) => r(true));
+    }
+  }
   state = () => this.hubConnection?.state ?? null;
   invoke = async () => {
     if (await this.hubConnection.state === 'Connected') {
@@ -28,16 +35,26 @@ export class SignalRService {
       throwError('Сокеты не подключены');
     }
   }
-  dataTransferSub(method): Observable<any> {
-    return new Observable((obs) => {
-      if (this.hubConnection.state === 'Connected') {
-        this.hubConnection.on(method, (user, message) => {
-          obs.next({user, message});
-        });
-      } else {
-        obs.error('Сокеты потерпели крушение');
-      }
-    });
+  dataTransferSub(method, isTimer = true): Observable<any> {
+    if(isTimer) {
+      return new Observable((obs) => {
+        if(method === 'Power' || method === 'Help') {
+
+        } else {
+          setInterval(() => obs.next(null), 2000);
+        }
+      });
+    } else {
+      return new Observable((obs) => {
+        if (this.hubConnection.state === 'Connected') {
+          this.hubConnection.on(method, (user, message) => {
+            obs.next({user, message});
+          });
+        } else {
+          obs.error('Сокеты потерпели крушение');
+        }
+      });
+    }
   }
   // public addTransferChartDataListener = () => {
   //   this.hubConnection.on('transferchartdata', (data) => {

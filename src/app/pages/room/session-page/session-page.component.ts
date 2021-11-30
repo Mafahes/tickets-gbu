@@ -122,10 +122,10 @@ export class SessionPageComponent implements OnInit, OnDestroy {
       await this.app.getSessions();
     }
     this.parseData();
-    this.socket.dataTransferSub('register').subscribe((e) => {
+    this.socket.dataTransferSub('register', false).subscribe((e) => {
       this.parseData();
     })
-    this.socket.dataTransferSub('Help').subscribe((e) => {
+    this.socket.dataTransferSub('Help', false).subscribe((e) => {
       console.log(e);
       const dialogRef = this.dialog.open(SessionPageDialogComponent, {
         data: e.user
