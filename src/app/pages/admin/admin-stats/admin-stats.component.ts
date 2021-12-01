@@ -35,7 +35,7 @@ export class AdminStatsComponent implements OnInit {
     }
     this.selectedDateRange = new DateRange(d1, d2);
     var a = await this.api.getAdminStats(d1.toISOString(), d2.toISOString()).toPromise();
-    this.barChartLabels = a.stats.map((e) => new Date(e.date).getDay().toString())
+    this.barChartLabels = a.stats.map((e) => new Date(e.date).getDate().toString())
     this.barChartData = [
       {
         data: a.stats.map(e => e.count),
@@ -58,7 +58,7 @@ export class AdminStatsComponent implements OnInit {
         date
       );
       var a = await this.api.getAdminStats(this.selectedDateRangePicker.start.toISOString(), this.selectedDateRangePicker.end.toISOString()).toPromise();
-      this.barChartLabels = a.stats.map((e) => new Date(e.date).getDay().toString())
+      this.barChartLabels = a.stats.map((e) => new Date(e.date).getDate().toString())
       this.barChartData = [
         {
           data: a.stats.map(e => e.count),

@@ -41,7 +41,15 @@ export class ApiService {
     return this.http.get<StatObject>(`${Api.API_LINK}api/sessions/stats`);
   }
   getAdminStats(start, finish): Observable<AdminStat> {
-    return this.http.get<AdminStat>(`${Api.API_LINK}api/stats?start=${start}&finish=${finish}`);
+    return this.http.get<AdminStat>(`${Api.API_LINK}api/stats?start=${start}&finish=${finish}`)
+      .pipe(
+        map(e => {
+          return {
+            ...e,
+            stats: e.stats.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+          }
+        })
+      );
   }
   createRoom(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/rooms`, data);
