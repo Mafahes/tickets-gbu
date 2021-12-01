@@ -43,12 +43,13 @@
 <!--  </div>-->
   <div class="row mt-4">
     <div class="w-100" style="height: 600px">
-      <canvas baseChart
+      <canvas *ngIf="barChartData.length > 0" baseChart
               [datasets]="barChartData"
               [labels]="barChartLabels"
               [options]="barChartOptions"
               [plugins]="barChartPlugins"
               [legend]="barChartLegend"
+              [chartType]="barChartType"
               >
       </canvas>
     </div>

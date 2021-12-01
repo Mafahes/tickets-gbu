@@ -3,7 +3,7 @@ import {ApiService} from "../../../shared/services/api.service";
 import {Router} from "@angular/router";
 import {forkJoin} from "rxjs";
 import {Category, RoomData, RoomObject, Service} from "../../../shared/interfaces/room";
-import {ChartDataset, ChartOptions, ChartType} from "chart.js";
+import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
 import {DateRange} from "@angular/material/datepicker";
 
 @Component({
@@ -82,7 +82,7 @@ export class AdminStatsComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
-  public barChartData: ChartDataset[] = [];
+  public barChartData: ChartDataSets[] = [];
   constructor(
     private api: ApiService,
     private router: Router
