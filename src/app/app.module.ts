@@ -36,7 +36,12 @@ import {MatChipsModule} from '@angular/material/chips';
 import { FilterPipe } from './shared/pipes/filter.pipe';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {NgxMatRangeSliderModule} from 'ngx-mat-range-slider';
-import {MatCalendar, MatDatepickerModule} from '@angular/material/datepicker';
+import {
+  DefaultMatCalendarRangeStrategy,
+  MAT_DATE_RANGE_SELECTION_STRATEGY,
+  MatCalendar,
+  MatDatepickerModule
+} from '@angular/material/datepicker';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { LOCALE_ID } from '@angular/core';
@@ -98,6 +103,7 @@ import { TicketSoundsComponent } from './pages/admin/ticket-sounds/ticket-sounds
 import { CounterPipePipe } from './shared/components/counter-pipe.pipe';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { AdminStatsComponent } from './pages/admin/admin-stats/admin-stats.component';
+import {NgChartsModule} from "ng2-charts";
 
 registerLocaleData(localeRu, 'ru');
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -156,75 +162,81 @@ export const MY_FORMATS = {
     ErrorPageComponent,
     AdminStatsComponent
   ],
-  imports: [
-    BrowserAnimationsModule,
-    NgxOneSignalModule.forRoot({
-      appId: '6f3f32b1-f333-4ac9-8edb-0fc40c368f6b',
-      allowLocalhostAsSecureOrigin: true,
-      autoRegister: true,
-      notifyButton: {
-        enabled: true,
-      },
-    }),
-    ServiceWorkerModule.register('OneSignalSDKWorker.js', {
-      enabled: true,
-    }),
-    NgxSpinnerModule,
-    MatBadgeModule,
-    MatStepperModule,
-    QuillModule.forRoot(),
-    SidebarModule.forRoot(),
-    DragDropModule,
-    BrowserModule,
-    AppRoutingModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatSnackBarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    HttpClientModule,
-    MatListModule,
-    NgxMaskModule.forRoot(),
-    ReactiveFormsModule,
-    Ng2SmartTableModule,
-    MatDialogModule,
-    MatOptionModule,
-    MatInputModule,
-    MatSelectModule,
-    FormsModule,
-    ImageCropperModule,
-    MatMenuModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatExpansionModule,
-    NgxMatRangeSliderModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NgxPaginationModule,
-    MatTooltipModule,
-    MatProgressBarModule,
-    MatDividerModule,
-    MatRippleModule,
-    CodeInputModule,
-    NgxMatDatetimePickerModule,
-    NgxMatNativeDateModule,
-    NgxMatTimepickerModule,
-    MatProgressSpinnerModule,
-    MatButtonToggleModule,
-    NgSelectModule,
-    MatCardModule,
-    MatBottomSheetModule,
-    UploaderModule,
-    MatTreeModule,
-    MatRadioModule],
+    imports: [
+        BrowserAnimationsModule,
+        NgxOneSignalModule.forRoot({
+            appId: '6f3f32b1-f333-4ac9-8edb-0fc40c368f6b',
+            allowLocalhostAsSecureOrigin: true,
+            autoRegister: true,
+            notifyButton: {
+                enabled: true,
+            },
+        }),
+        ServiceWorkerModule.register('OneSignalSDKWorker.js', {
+            enabled: true,
+        }),
+        NgxSpinnerModule,
+        MatBadgeModule,
+        MatStepperModule,
+        QuillModule.forRoot(),
+        SidebarModule.forRoot(),
+        DragDropModule,
+        BrowserModule,
+        AppRoutingModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatSnackBarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        HttpClientModule,
+        MatListModule,
+        NgxMaskModule.forRoot(),
+        ReactiveFormsModule,
+        Ng2SmartTableModule,
+        MatDialogModule,
+        MatOptionModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule,
+        ImageCropperModule,
+        MatMenuModule,
+        MatCheckboxModule,
+        MatChipsModule,
+        MatExpansionModule,
+        NgxMatRangeSliderModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NgxPaginationModule,
+        MatTooltipModule,
+        MatProgressBarModule,
+        MatDividerModule,
+        MatRippleModule,
+        CodeInputModule,
+        NgxMatDatetimePickerModule,
+        NgxMatNativeDateModule,
+        NgxMatTimepickerModule,
+        MatProgressSpinnerModule,
+        MatButtonToggleModule,
+        NgSelectModule,
+        MatCardModule,
+        MatBottomSheetModule,
+        UploaderModule,
+        MatTreeModule,
+        MatRadioModule,
+        NgChartsModule
+    ],
   providers: [
     INTERCEPTOR_PROVIDER,
     DatePipe,
     { provide: LOCALE_ID, useValue: 'ru' },
     { provide: MAT_DATE_LOCALE, useValue: 'ru' },
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    {
+      provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+      useClass: DefaultMatCalendarRangeStrategy,
+    },
   ],
   bootstrap: [AppComponent]
 })

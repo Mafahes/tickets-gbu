@@ -5,32 +5,62 @@
     </div>
     <div class="col-6 d-flex justify-content-start align-items-start flex-row">
       <div class="button-switch d-flex flex-row align-items-center">
-        <img class="hover-pointer" src="assets/images/arrow_left.png"/>
-        <div>
-          <span>1 октября - 30 октября</span>
+        <img (click)="_onSwitchDate(true)" class="hover-pointer" src="assets/images/arrow_left.png"/>
+        <div class="hover-pointer" (click)="pickerShowed = !pickerShowed">
+          <span>{{selectedDateRange.start | date: 'dd MMMM'}} - {{selectedDateRange.end | date: 'dd MMMM'}}</span>
         </div>
-        <img class="hover-pointer" src="assets/images/arrow_right.png"/>
+        <img (click)="_onSwitchDate(false)" class="hover-pointer" src="assets/images/arrow_right.png"/>
       </div>
     </div>
   </div>
+  <div class="row" *ngIf="pickerShowed">
+    <div class="col-3">
+      <div style="background-color: white; width: 370px;padding: 10px;">
+        <mat-calendar (selectedChange)="_onSelectedChange($event)"
+                      [selected]="selectedDateRangePicker"></mat-calendar>
+      </div>
+    </div>
+  </div>
+<!--  <div class="row mt-4">-->
+<!--    <div class="col-2">-->
+<!--      <select (ngModelChange)="filterArr($event, 1)" [(ngModel)]="a1" class="w-100">-->
+<!--        <option value="" disabled selected>Залы</option>-->
+<!--        <option *ngFor="let item of room.data" [value]="item.id">{{item.name}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div class="col-2" *ngIf="selectedCategory.length > 0">-->
+<!--      <select class="w-100" (ngModelChange)="filterArr($event, 2)" [(ngModel)]="a2">-->
+<!--        <option value="" disabled selected>Категории</option>-->
+<!--        <option *ngFor="let item of selectedCategory" [value]="item.id">{{item.name}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div class="col-2" *ngIf="selectedService.length > 0">-->
+<!--      <select (ngModelChange)="filterArr($event, 3)" [(ngModel)]="a3" class="w-100">-->
+<!--        <option value="" disabled selected>Услуги</option>-->
+<!--        <option *ngFor="let item of selectedService" [value]="item.id">{{item.name}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--  </div>-->
   <div class="row mt-4">
-    <div class="col-2">
-      <select (ngModelChange)="filterArr($event, 1)" [(ngModel)]="a1" class="w-100">
-        <option value="" disabled selected>Залы</option>
-        <option *ngFor="let item of room.data" [value]="item.id">{{item.name}}</option>
-      </select>
+    <div class="w-100" style="height: 600px">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              >
+      </canvas>
     </div>
-    <div class="col-2" *ngIf="selectedCategory.length > 0">
-      <select class="w-100" (ngModelChange)="filterArr($event, 2)" [(ngModel)]="a2">
-        <option value="" disabled selected>Категории</option>
-        <option *ngFor="let item of selectedCategory" [value]="item.id">{{item.name}}</option>
-      </select>
-    </div>
-    <div class="col-2" *ngIf="selectedService.length > 0">
-      <select (ngModelChange)="filterArr($event, 3)" [(ngModel)]="a3" class="w-100">
-        <option value="" disabled selected>Услуги</option>
-        <option *ngFor="let item of selectedService" [value]="item.id">{{item.name}}</option>
-      </select>
+  </div>
+  <div class="row mt-4" *ngIf="ticketsCount !== 0">
+    <div class="w-100 count-container d-flex flex-row">
+      <div class="w-50 p-3" style="border-right: 2px solid black">
+        <span class="label">Общее количество заявок:</span>
+      </div>
+      <div class="w-50 p-3 d-flex justify-content-center align-items-center">
+        <span class="label" style="text-align: center">{{ticketsCount}}</span>
+      </div>
     </div>
   </div>
 </div>

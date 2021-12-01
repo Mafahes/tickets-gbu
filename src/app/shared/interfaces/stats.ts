@@ -6,3 +6,12 @@ export interface StatObject {
   timelastticket: number;
   timeavgticket: number;
 }
+export interface Stat {
+  date: Date;
+  count: number;
+}
+
+export interface AdminStat {
+  count: number;
+  stats: Stat[];
+}

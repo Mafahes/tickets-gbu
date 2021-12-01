@@ -12,7 +12,7 @@ import {Window} from "../interfaces/window";
 import {Tickets} from "../interfaces/myTickets";
 import {Reason} from "../interfaces/reason";
 import {User} from "../interfaces/User";
-import {StatObject} from "../interfaces/stats";
+import {AdminStat, StatObject} from "../interfaces/stats";
 import {SoundObject} from "../interfaces/Sound";
 
 
@@ -39,6 +39,9 @@ export class ApiService {
   }
   getStats(): Observable<StatObject> {
     return this.http.get<StatObject>(`${Api.API_LINK}api/sessions/stats`);
+  }
+  getAdminStats(start, finish): Observable<AdminStat> {
+    return this.http.get<AdminStat>(`${Api.API_LINK}api/stats?start=${start}&finish=${finish}`);
   }
   createRoom(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/rooms`, data);
