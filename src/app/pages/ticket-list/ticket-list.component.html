@@ -25,6 +25,7 @@
     </div>
     <div class="half" *ngIf="queue.length > 0 && selectedItem === 0 ? true : !!selectedItem">
       <div
+        [class.hided]="!queue[selectedPage][selectedItem]?.session"
         [class.r-bt-right]="true"
         [class.r-top-right]="true"
         [class.r-bt-left]="!(selectedItem + 1 === queue[selectedPage].length)"

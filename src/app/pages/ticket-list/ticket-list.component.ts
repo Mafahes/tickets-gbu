@@ -78,7 +78,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
           return;
         }
         this.selectedItem = this.selectedItem === undefined ? 0 : this.selectedItem + 1 === this.queue[this.selectedPage].length ? 0 : this.queue[this.selectedPage].length < this.selectedItem + 1 ? 0 : this.selectedItem + 1;
-      }, 1000);
+      }, 3000);
     }
   }
   ngOnInit(): void {
