@@ -26,16 +26,22 @@ export class TicketListComponent implements OnInit, OnDestroy {
   audio = new Audio();
   async playSounds(arr: Queue[]) {
     var sounds = await this.api.getSounds().toPromise();
+    console.log(arr);
+    console.log(arr.filter((e) => e.session !== null));
     for (const i of arr.filter((e) => e.session !== null)) {
       if(!!sounds.find((e) => e.name === i.name)) {
+        console.log('sound 1 found');
         this.audio.src = sounds.find((e) => e.name === i.name).file.fullUrl;
         this.audio.load();
         await this.audio.play();
-        if(!!i?.session?.windows?.audio?.fullUrl) {
-          this.audio.src = i.session.windows.audio.fullUrl;
-          this.audio.load();
-          await this.audio.play();
-        }
+        console.log(i);
+      }
+      console.log(i);
+      if(!!i?.session?.windows?.audio?.fullUrl) {
+        console.log('sound 2 found');
+        this.audio.src = i.session.windows.audio.fullUrl;
+        this.audio.load();
+        await this.audio.play();
       }
     }
   }
