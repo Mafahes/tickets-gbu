@@ -38,6 +38,8 @@
       <input class="formInput w-100" placeholder="Название" formControlName="name"/>
       <input class="formInput w-100" placeholder="Описание" formControlName="description"/>
       <input class="formInput w-100" placeholder="Буква на талоне" formControlName="letter"/>
+      <p>Аудио озвучка</p>
+      <input type="file" (change)="onWindowAudioUpload(i, $event)"/>
     </div>
   </div>
   <button mat-raised-button class="mt-2" (click)="addWindowControl()">Добавить окно</button>

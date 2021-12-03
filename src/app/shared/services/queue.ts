@@ -63,9 +63,13 @@ export interface Windows {
   letter: string;
   fileId?: any;
   file?: any;
+  audio: Audio;
   dateAdd: Date;
 }
-
+export interface Audio {
+  fullUrl: string;
+  id: number;
+}
 export interface Session {
   id: number;
   roomId: number;

@@ -31,6 +31,11 @@ export class TicketListComponent implements OnInit, OnDestroy {
         this.audio.src = sounds.find((e) => e.name === i.name).file.fullUrl;
         this.audio.load();
         await this.audio.play();
+        if(!!i?.session?.windows?.audio?.fullUrl) {
+          this.audio.src = i.session.windows.audio.fullUrl;
+          this.audio.load();
+          await this.audio.play();
+        }
       }
     }
   }

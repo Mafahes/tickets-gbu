@@ -57,12 +57,23 @@ export class NewAdminRoomsComponent implements OnInit {
       fileId: 1
     }))
   }
+  async onWindowAudioUpload(roomIndex, file) {
+    if(!!file.target.files.length) {
+      const fd = new FormData();
+      fd.append('uploadedFiles', file.target.files[0]);
+      var a = await this.api.uploadFile(fd).toPromise();
+      (this.form.get('windows') as FormArray).controls[roomIndex].patchValue({
+        audioId: a[0].id
+      })
+    }
+  }
   addWindowControl() {
     let cats = this.form.get('windows') as FormArray;
     cats.push(this.fb.group({
       name: '',
       description: '',
       letter: '',
+      audioId: 25,
       fileId: 1
     }))
   }
@@ -83,11 +94,11 @@ export class NewAdminRoomsComponent implements OnInit {
       description: '',
       letter: '',
       fileUrl: '',
-      fileId: 0
+      fileId: 1
     }))
   }
   async save(): Promise<void> {
-    await (!!this.roomId ? this.api.updateRoom(this.form.value) : this.api.createRoom(this.form.value)).toPromise();
+    await (!!this.roomId ? this.api.updateRoom({id: parseInt(this.roomId), ...this.form.value}) : this.api.createRoom(this.form.value)).toPromise();
     this.router.navigate(['/admin/rooms'])
   }
   ngOnInit(): void {
@@ -121,6 +132,7 @@ export class NewAdminRoomsComponent implements OnInit {
         (room?.windows ?? []).forEach((e) => a2.push(
           this.fb.group({
             name: e.name,
+            audioId: e.audioId,
             description: e.description,
             letter: e.letter,
             fileId: 1

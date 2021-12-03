@@ -1,3 +1,5 @@
+import {Audio} from "../services/queue";
+
 export interface Window {
   id: number;
   roomId: number;
@@ -8,4 +10,6 @@ export interface Window {
   file?: any;
   dateAdd: Date;
   checked: boolean;
+  audio: Audio;
+  audioId: number;
 }
