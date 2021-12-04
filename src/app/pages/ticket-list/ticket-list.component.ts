@@ -24,19 +24,21 @@ export class TicketListComponent implements OnInit, OnDestroy {
   selectedItem: any;
   selectedPage = 0;
   audio = new Audio();
-  async playSounds(arr: Queue[]) {
+  async playSounds(arr: Queue[]): Promise<void> {
     var sounds = await this.api.getSounds().toPromise();
     console.log(arr);
     console.log(arr.filter((e) => e.session !== null));
     for (const i of arr.filter((e) => e.session !== null)) {
       if(!!sounds.find((e) => e.name === i.name)) {
         console.log('sound 1 found');
+        console.log(sounds.find((e) => e.name === i.name));
         this.audio.src = sounds.find((e) => e.name === i.name).file.fullUrl;
         this.audio.load();
-        await this.audio.play();
-        console.log(i);
+        await new Promise(r => {
+          this.audio.play();
+          this.audio.onended = r;
+        });
       }
-      console.log(i);
       if(!!i?.session?.windows?.audio?.fullUrl) {
         console.log('sound 2 found');
         this.audio.src = i.session.windows.audio.fullUrl;
@@ -52,7 +54,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
           map(i => i.filter(e2 => e2.roomId === parseInt(e.get('id'))))
         ).toPromise();
         var a = _.chunk((src), 4);
-        if(_.differenceBy(src, _.flattenDeep(this.queue), 'session.id').length > 0) {
+        if(_.differenceBy(src, _.flattenDeep(this.queue), 'session.id').length > 0 && !!this.queue.length) {
           this.playSounds(_.differenceBy(src, _.flattenDeep(this.queue), 'session.id'));
         }
         if(!_(this.queue).differenceWith(a, _.isEqual).isEmpty()) {
