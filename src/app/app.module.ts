@@ -105,6 +105,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { AdminStatsComponent } from './pages/admin/admin-stats/admin-stats.component';
 import {ChartsModule} from "ng2-charts";
 import { TicketSoundsWindowComponent } from './pages/admin/ticket-sounds/ticket-sounds-window/ticket-sounds-window.component';
+import { FilterTicketsPipe } from './pages/ticket-list/filter-tickets.pipe';
 
 registerLocaleData(localeRu, 'ru');
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -162,7 +163,8 @@ export const MY_FORMATS = {
     CounterPipePipe,
     ErrorPageComponent,
     AdminStatsComponent,
-    TicketSoundsWindowComponent
+    TicketSoundsWindowComponent,
+    FilterTicketsPipe
   ],
   imports: [
     BrowserAnimationsModule,

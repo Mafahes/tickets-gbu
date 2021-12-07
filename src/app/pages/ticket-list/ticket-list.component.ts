@@ -21,17 +21,32 @@ export class TicketListComponent implements OnInit, OnDestroy {
   ) {}
   interval: any;
   queue: Queue[][] = [];
+  queueSrc: Queue[][] = [];
   selectedItem: any;
   selectedPage = 0;
   audio = new Audio();
+  //NEW ADDED TICKET - STARTS
+  addedTicket: Queue;
+  isActiveAddedTicket = false;
+  selectedActiveItem: any;
+  selectedActivePage = 0;
+  //NEW ADDED TICKET - ENDS
+  async notifyTicket(q: Queue) {
+    this.addedTicket = q;
+    this.isActiveAddedTicket = true;
+    await new Promise((r) => {
+      setTimeout(() => {
+        this.isActiveAddedTicket = false;
+        this.addedTicket = null;
+        r(true);
+      }, 3000)
+    })
+  }
   async playSounds(arr: Queue[]): Promise<void> {
     var sounds = await this.api.getSounds().toPromise();
-    console.log(arr);
-    console.log(arr.filter((e) => e.session !== null));
     for (const i of arr.filter((e) => e.session !== null)) {
+      this.notifyTicket(i);
       if(!!sounds.find((e) => e.name === i.name)) {
-        console.log('sound 1 found');
-        console.log(sounds.find((e) => e.name === i.name));
         this.audio.src = sounds.find((e) => e.name === i.name).file.fullUrl;
         this.audio.load();
         await new Promise(r => {
@@ -40,7 +55,6 @@ export class TicketListComponent implements OnInit, OnDestroy {
         });
       }
       if(!!i?.session?.windows?.audio?.fullUrl) {
-        console.log('sound 2 found');
         this.audio.src = i.session.windows.audio.fullUrl;
         this.audio.load();
         await this.audio.play();
@@ -53,7 +67,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
         var src = await this.api.getQueue().pipe(
           map(i => i.filter(e2 => e2.roomId === parseInt(e.get('id'))))
         ).toPromise();
-        var a = _.chunk((src), 4);
+        var a = _.chunk((src), 5);
         if(_.differenceBy(src, _.flattenDeep(this.queue), 'session.id').length > 0 && !!this.queue.length) {
           this.playSounds(_.differenceBy(src, _.flattenDeep(this.queue), 'session.id'));
         }
@@ -63,9 +77,11 @@ export class TicketListComponent implements OnInit, OnDestroy {
         }
         if(init) {
           this.queue = a;
+          this.queueSrc = _.chunk((src.filter((e) => !!e?.session)), 5);
         }
         if(!!this.interval && !_(this.queue).differenceWith(a, _.isEqual).isEmpty()) {
           this.queue = a;
+          this.queueSrc = _.chunk((src.filter((e) => !!e?.session)), 5);
         }
         if(this.queue.length === 0) {
           this.selectedItem = null;
@@ -80,6 +96,18 @@ export class TicketListComponent implements OnInit, OnDestroy {
     // setTimeout(() => this.router.navigate(['/safety']), 14000);
     if(init) {
       this.interval = setInterval(() => {
+        if(this.queueSrc.length === 0) {
+          this.selectedActivePage = 0;
+          this.selectedActiveItem = 0;
+          return;
+        }
+        if((this.selectedActiveItem + 1) === this.queue[this.selectedActivePage].length) {
+          this.selectedActivePage = this.queue.length === (this.selectedActivePage + 1) ? 0 : this.selectedActivePage + 1;
+          this.selectedActiveItem = 0;
+          return;
+        }
+        this.selectedActiveItem = this.selectedActiveItem === undefined ? 0 : this.selectedActiveItem + 1 === this.queue[this.selectedActivePage].length ? 0 : this.queue[this.selectedActivePage].length < this.selectedActivePage + 1 ? 0 : this.selectedActivePage + 1;
+        //-------------------
         if(this.queue.length === 0) {
           this.selectedPage = 0;
           this.selectedItem = 0;

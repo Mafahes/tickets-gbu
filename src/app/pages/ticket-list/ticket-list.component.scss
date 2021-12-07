@@ -52,13 +52,20 @@ p {
     color: white;
   }
 }
+.list-active {
+  background-color: white;
+  border-radius: 5px;
+  p, span {
+    color: black !important;
+  }
+}
 .hided {
   background-color: black !important;
 }
 .active {
-  background-color: white;
+  //background-color: white;
   p, span {
-    color: black !important;
+    //color: black !important;
   }
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
