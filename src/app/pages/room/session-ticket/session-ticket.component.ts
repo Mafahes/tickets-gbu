@@ -9,6 +9,7 @@ import {Reason} from "../../../shared/interfaces/reason";
 import {AppComponent} from "../../../app.component";
 import {map} from "rxjs/operators";
 import {forkJoin} from "rxjs";
+import {SignalRService} from "../../../shared/services/signal-r.service";
 
 @Component({
   selector: 'app-session-ticket',
@@ -31,6 +32,7 @@ export class SessionTicketComponent implements OnInit {
     private snackBar: MatSnackBar,
     public api: ApiService,
     private dialog: MatDialog,
+    private signal: SignalRService,
     private arouter: ActivatedRoute
   ) {
   }
@@ -98,6 +100,7 @@ export class SessionTicketComponent implements OnInit {
         this.ticketId = e.get('tId');
       }
     )
+    await this.signal.startConnection();
     if(this.app.sessions.length === 0) {
       await this.app.getSessions();
     }
@@ -110,6 +113,10 @@ export class SessionTicketComponent implements OnInit {
       duration: 1000,
       panelClass: ['snack-bar-card']
     })
+  }
+  async sendNotify(): Promise<void> {
+    await this.signal.startConnection();
+    this.signal.invokeMethod('ReCall', parseInt(this.ticketId, 10));
   }
   async switchPause(): Promise<void> {
     if(this.app.sessions[0].pause === null || this.app.sessions[0].pause.length === 0) {

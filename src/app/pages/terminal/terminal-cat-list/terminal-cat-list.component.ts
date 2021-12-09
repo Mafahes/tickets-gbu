@@ -38,7 +38,7 @@ export class TerminalCatListComponent implements OnInit, OnDestroy {
     })
     this.arouter.paramMap.subscribe(async (i) => {
       this.roomId = i.get('id') === null ? null : parseInt(i.get('id'));
-      this.roomCats = (await this.api.getRooms().toPromise()).data[0];
+      this.roomCats = (await this.api.getRooms().toPromise()).data[1];
       this.selectedCat = this.roomCats.category[0];
       this.type = 2;
     })
