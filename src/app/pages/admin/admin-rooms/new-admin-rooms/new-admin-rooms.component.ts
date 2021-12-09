@@ -19,6 +19,7 @@ export class NewAdminRoomsComponent implements OnInit {
   ) { }
   form = this.fb.group({
     name: '',
+    id: 0,
     description: '',
     address: '',
     category: this.fb.array([]),
@@ -50,6 +51,7 @@ export class NewAdminRoomsComponent implements OnInit {
   addCatControl() {
     let cats = this.form.get('category') as FormArray;
     cats.push(this.fb.group({
+      id: 0,
       name: '',
       description: '',
       letter: '',
@@ -70,6 +72,7 @@ export class NewAdminRoomsComponent implements OnInit {
   addWindowControl() {
     let cats = this.form.get('windows') as FormArray;
     cats.push(this.fb.group({
+      id: 0,
       name: '',
       description: '',
       letter: '',
@@ -90,6 +93,7 @@ export class NewAdminRoomsComponent implements OnInit {
   addServiceControl(index) {
     let cats = (this.form.get('category') as FormArray).controls[index].get('services') as FormArray;
     cats.push(this.fb.group({
+      id: 0,
       name: '',
       description: '',
       letter: '',
@@ -109,6 +113,7 @@ export class NewAdminRoomsComponent implements OnInit {
         // await new Promise((res, rej) => setTimeout(() => res(true), 2000))
         this.form.patchValue({
           name: room.name,
+          id: room.id,
           description: room.description,
           address: room.address,
           fileId: 1
@@ -118,9 +123,11 @@ export class NewAdminRoomsComponent implements OnInit {
         room.category.forEach((e) => a.push(
           this.fb.group({
             name: e.name,
+            id: e.id,
             description: e.description,
             letter: e.letter,
             services: this.fb.array(e.services.map((e2) => this.fb.group({
+              id: e2.id,
               name: e2.name,
               description: e2.description,
               letter: e2.letter,
@@ -131,6 +138,7 @@ export class NewAdminRoomsComponent implements OnInit {
         ));
         (room?.windows ?? []).forEach((e) => a2.push(
           this.fb.group({
+            id: e.id,
             name: e.name,
             audioId: e.audioId,
             description: e.description,
