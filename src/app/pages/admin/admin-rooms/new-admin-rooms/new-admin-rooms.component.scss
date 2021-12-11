@@ -10,6 +10,13 @@
   font-size: 18px !important;
   border-radius: 0px !important;
 }
+.filelabel {
+  padding: 10px;
+  border: 2px solid black;
+  span {
+    font-family: HumanistRegular, sans-serif;
+  }
+}
 .cat-card {
   padding: 10px;
   border: 1px solid black;

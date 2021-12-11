@@ -14,7 +14,7 @@ import {Reason} from "../interfaces/reason";
 import {User} from "../interfaces/User";
 import {AdminStat, StatObject} from "../interfaces/stats";
 import {SoundObject} from "../interfaces/Sound";
-
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class ApiService {
     return this.http.get<any>(`${Api.API_LINK}api/sessions/stop`);
   }
   getRooms(): Observable<RoomObject> {
-    return this.http.get<RoomObject>(`${Api.API_LINK}api/rooms`);
+    return this.http.get<RoomObject>(`${Api.API_LINK}api/rooms`)
   }
   getStats(): Observable<StatObject> {
     return this.http.get<StatObject>(`${Api.API_LINK}api/sessions/stats`);
@@ -59,10 +59,14 @@ export class ApiService {
   }
   getWindows(id): Observable<Window[]> {
     return this.http.get<Window[]>(`${Api.API_LINK}api/rooms/windows?roomId=${id}`)
-      .pipe(map(e => e.map((e2) => ({...e2, checked: false}))));
+      .pipe(map(e => e.map((e2) => ({...e2, checked: false})))).pipe(
+        map((e) => _.uniqBy(e, 'name'))
+      );
   }
   getCatByRoom(id): Observable<Cat[]> {
-    return this.http.get<Cat[]>(`${Api.API_LINK}api/rooms/categories?roomId=${id}`);
+    return this.http.get<Cat[]>(`${Api.API_LINK}api/rooms/categories?roomId=${id}`).pipe(
+      map((e) => _.uniqBy(e, 'name'))
+    );
   }
   startSession(data): Observable<any> {
     return this.http.post<any>(`${Api.API_LINK}api/sessions/start`, data);

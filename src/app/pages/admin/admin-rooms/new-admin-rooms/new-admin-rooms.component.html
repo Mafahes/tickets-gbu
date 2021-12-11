@@ -39,7 +39,12 @@
       <input class="formInput w-100" placeholder="Описание" formControlName="description"/>
       <input class="formInput w-100" placeholder="Буква на талоне" formControlName="letter"/>
       <p>Аудио озвучка</p>
-      <input type="file" (change)="onWindowAudioUpload(i, $event)"/>
+      <label class="w-25" for="AFile">
+        <div class="filelabel hover-pointer">
+          <span>{{item?.value?.audioId === null ? 'Выберите файл' : 'Файл ID:' + item?.value?.audioId}}</span>
+        </div>
+      </label>
+      <input id="AFile" class="d-none" type="file" (change)="onWindowAudioUpload(i, $event)"/>
     </div>
   </div>
   <button mat-raised-button class="mt-2" (click)="addWindowControl()">Добавить окно</button>

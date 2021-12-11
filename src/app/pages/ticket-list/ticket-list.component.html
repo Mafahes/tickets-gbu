@@ -12,7 +12,7 @@
           </span>
       </div>
     </div>
-    <div class="half">
+    <div class="half" *ngIf="queueSrc.length > 0">
       <div class="d-flex flex-row mt-4">
         <span class="th half-40">
             ТАЛОН
@@ -44,7 +44,7 @@
         <span *ngIf="!addedTicket?.session">ОЖИДАЙТЕ</span>
       </div>
     </div>
-    <div class="half list-active d-flex flex-column" *ngIf="queue.length > 0 && !isActiveAddedTicket">
+    <div class="half list-active d-flex flex-column" *ngIf="queueSrc.length > 0 && !isActiveAddedTicket">
       <div *ngFor="let item of queueSrc[selectedActivePage]; let i = index"
            (click)="select(i)"
            [class.active]="selectedItem === i"

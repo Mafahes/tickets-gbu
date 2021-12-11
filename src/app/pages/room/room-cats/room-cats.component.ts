@@ -20,7 +20,7 @@ export class RoomCatsComponent implements OnInit {
   mainCat = [];
   secondCat = [];
   roomId;
-  wid
+  wid;
   ngOnInit(): void {
     this.arouter.paramMap.subscribe(async (e) => {
       this.wid = e.get('wid');

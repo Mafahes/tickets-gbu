@@ -76,16 +76,9 @@ export class TicketListComponent implements OnInit, OnDestroy {
           this.selectedPage = 0;
           this.selectedItem = 0;
         }
-        if(init) {
           this.queue = a;
           this.q = src;
           this.queueSrc = _.chunk((src.filter((e) => !!e?.session)), 5);
-        }
-        if(!!this.interval && !_(this.queue).differenceWith(a, _.isEqual).isEmpty()) {
-          this.queue = a;
-          this.q = src;
-          this.queueSrc = _.chunk((src.filter((e) => !!e?.session)), 5);
-        }
         if(this.queue.length === 0) {
           this.selectedItem = null;
           this.selectedPage = 0;
