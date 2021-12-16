@@ -167,4 +167,7 @@ export class ApiService {
   deleteUser(id): Observable<any> {
     return this.http.delete<any>(`${Api.API_LINK}api/users?id=${id}`);
   }
+  nextTicket(): Observable<any> {
+    return this.http.get<any>(`${Api.API_LINK}api/tickets/next`);
+  }
 }

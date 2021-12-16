@@ -127,6 +127,11 @@ export class SessionTicketComponent implements OnInit {
       this.parseData();
     }
   }
+  async nextTicket(): Promise<void> {
+  }
+  async overTicket(): Promise<void> {
+    await this.api.nextTicket().toPromise();
+  }
   async sendDialog(type = 1): Promise<void> {
     const dialogRef = this.dialog.open(TicketEndComponent, {
       data: {
@@ -142,7 +147,8 @@ export class SessionTicketComponent implements OnInit {
       switch (type) {
         case 1: {
           await this.api.overTicket({...result, overId: result.id, ticketId: parseInt(this.ticketId)}).toPromise();
-          this.router.navigate(['room/session/' + this.sessionId])
+          var next = await this.api.nextTicket().toPromise();
+          this.router.navigate([`room/session/${this.sessionId}/ticket/${next.id}`])
           break;
         }
         case 2: {
