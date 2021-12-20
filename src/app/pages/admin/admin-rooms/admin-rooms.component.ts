@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../../shared/services/api.service";
 import {RoomData, RoomObject} from "../../../shared/interfaces/room";
+import {SignalRService} from "../../../shared/services/signal-r.service";
 
 
 @Component({
